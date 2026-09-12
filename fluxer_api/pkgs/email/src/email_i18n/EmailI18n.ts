@@ -10,7 +10,7 @@ import type {EmailTemplate, EmailTemplateKey} from '@pkgs/email/src/email_i18n/E
 
 const DEFAULT_LOCALE = 'en-US';
 const DEFAULT_EMAIL_TEMPLATE_VARIABLES = {
-	product_name: 'Fluxer',
+	product_name: 'Govorilka',
 	appeals_email: 'appeals@fluxer.app',
 	safety_email: 'safety@fluxer.app',
 } satisfies Record<string, string>;

@@ -639,7 +639,7 @@ mod tests {
         assert!(!is_static_root_file("/users/1.2.3"));
     }
 
-    const SHELL_WITH_A_NONCE_HOLE: &str = r#"<!doctype html><html><head><title>Fluxer</title><script nonce="{{CSP_NONCE_PLACEHOLDER}}"></script><script src="/assets/app.js"></script></head><body></body></html>"#;
+    const SHELL_WITH_A_NONCE_HOLE: &str = r#"<!doctype html><html><head><title>Govorilka</title><script nonce="{{CSP_NONCE_PLACEHOLDER}}"></script><script src="/assets/app.js"></script></head><body></body></html>"#;
 
     #[test]
     fn the_rendered_document_always_carries_the_bootstrap_and_a_real_nonce() {
@@ -718,7 +718,7 @@ mod tests {
         );
     }
 
-    const SHELL_WITH_ENDPOINT_HOLES: &str = r#"<!doctype html><html><head><title>Fluxer</title><link rel="preconnect" href="{{STATIC_CDN_ENDPOINT}}">
+    const SHELL_WITH_ENDPOINT_HOLES: &str = r#"<!doctype html><html><head><title>Govorilka</title><link rel="preconnect" href="{{STATIC_CDN_ENDPOINT}}">
 <link rel="preconnect" href="{{STATIC_CDN_ENDPOINT}}" crossorigin>
 <link rel="preconnect" href="{{MEDIA_ENDPOINT}}">
 <link rel="icon" type="image/png" sizes="32x32" href="{{STATIC_CDN_ENDPOINT}}/web/favicon-32x32.png"><link rel="apple-touch-icon" sizes="180x180" href="{{STATIC_CDN_ENDPOINT}}/web/apple-touch-icon.png"><script nonce="{{CSP_NONCE_PLACEHOLDER}}"></script><script src="/assets/app.js"></script></head><body></body></html>"#;

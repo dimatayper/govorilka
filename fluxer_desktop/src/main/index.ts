@@ -244,7 +244,7 @@ if (launchConfigurationError) {
 		log.error('[NativeModulePreflight] Fatal native module preflight failure:', error);
 		console.error(message);
 		try {
-			dialog.showErrorBox('Fluxer failed to start', message);
+			dialog.showErrorBox('Govorilka failed to start', message);
 		} catch {}
 		app.exit(1);
 		process.exit(1);

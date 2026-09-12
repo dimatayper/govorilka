@@ -19,10 +19,10 @@ function resolveStaticCdnEndpoint(staticCdnEndpoint) {
 function generateManifest(staticCdnEndpoint) {
 	const cdn = resolveStaticCdnEndpoint(staticCdnEndpoint);
 	const manifest = {
-		name: 'Fluxer',
-		short_name: 'Fluxer',
+		name: 'Govorilka',
+		short_name: 'Govorilka',
 		description:
-			'Fluxer is a free and open source instant messaging and VoIP platform built for friends, groups, and communities.',
+			'Govorilka is a free and open source instant messaging and VoIP platform built for friends, groups, and communities.',
 		start_url: '/',
 		display: 'standalone',
 		orientation: 'portrait-primary',

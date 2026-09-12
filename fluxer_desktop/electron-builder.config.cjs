@@ -7,12 +7,12 @@ const os = require('node:os');
 const path = require('node:path');
 const {promisify} = require('node:util');
 const execFileAsync = promisify(execFile);
-const productName = isCanary ? 'Fluxer Canary' : 'Fluxer';
-const artifactProductName = isCanary ? 'Fluxer-Canary' : 'Fluxer';
-const appId = isCanary ? 'app.fluxer.canary' : 'app.fluxer';
+const productName = isCanary ? 'Govorilka Canary' : 'Govorilka';
+const artifactProductName = isCanary ? 'Govorilka-Canary' : 'Govorilka';
+const appId = isCanary ? 'app.govorilka.canary' : 'app.govorilka';
 const iconDir = isCanary ? 'icons-canary' : 'icons-stable';
-const packageName = isCanary ? 'fluxer_desktop_canary' : 'fluxer_desktop';
-const linuxPackageName = isCanary ? 'fluxer-canary' : 'fluxer';
+const packageName = isCanary ? 'govorilka_desktop_canary' : 'govorilka_desktop';
+const linuxPackageName = isCanary ? 'govorilka-canary' : 'govorilka';
 const linuxDesktopActionIds = ['open-settings', 'new-dm'];
 const linuxDesktopActionList = `${linuxDesktopActionIds.join(';')};`;
 const linuxGlibcBaseline = Object.freeze({major: 2, minor: 35, patch: 0, name: 'GLIBC_2.35'});
@@ -315,7 +315,7 @@ const platformRuntimeDependencyExcludes =
 const linuxDesktopEntry = {
 	Name: productName,
 	GenericName: 'Instant Messenger',
-	Comment: isCanary ? 'Canary build of Fluxer' : 'Instant messaging and VoIP',
+	Comment: isCanary ? 'Canary build of Govorilka' : 'Instant messaging and VoIP',
 	Keywords: 'chat;im;messaging;messenger;voip;voice;video;call;',
 	Categories: 'Network;InstantMessaging;Chat;',
 	StartupWMClass: linuxPackageName,
@@ -1266,7 +1266,7 @@ async function verifyLinuxArtifactContracts(buildResult) {
 module.exports = {
 	appId,
 	productName,
-	copyright: 'Copyright © 2026 Fluxer Platform AB',
+	copyright: 'Copyright © 2026 Govorilka contributors',
 	artifactName: `${artifactProductName}-\${version}-\${os}-\${arch}.\${ext}`,
 	directories: {
 		buildResources: 'build_resources',
@@ -1416,11 +1416,11 @@ module.exports = {
 			},
 		],
 		extendInfo: {
-			NSMicrophoneUsageDescription: 'Fluxer needs access to your microphone to enable voice chat features.',
-			NSCameraUsageDescription: 'Fluxer needs access to your camera to enable video chat features.',
-			NSAppleEventsUsageDescription: 'Fluxer needs access to Apple Events for automation features.',
-			NSAudioCaptureUsageDescription: 'Fluxer captures audio from the screen or window you choose to share.',
-			NSScreenCaptureUsageDescription: 'Fluxer captures the screen or window you choose to share.',
+			NSMicrophoneUsageDescription: 'Govorilka needs access to your microphone to enable voice chat features.',
+			NSCameraUsageDescription: 'Govorilka needs access to your camera to enable video chat features.',
+			NSAppleEventsUsageDescription: 'Govorilka needs access to Apple Events for automation features.',
+			NSAudioCaptureUsageDescription: 'Govorilka captures audio from the screen or window you choose to share.',
+			NSScreenCaptureUsageDescription: 'Govorilka captures the screen or window you choose to share.',
 		},
 	},
 	dmg: {

@@ -1,0 +1,31 @@
+services:
+  edge:
+    volumes:
+      - ./Caddyfile.local:/etc/caddy/Caddyfile:ro
+  api:
+    image: govorilka/fluxer_api:local
+    build:
+      context: ../..
+      dockerfile: fluxer_api/Dockerfile
+  worker:
+    image: govorilka/fluxer_api:local
+    build:
+      context: ../..
+      dockerfile: fluxer_api/Dockerfile
+  app-proxy:
+    image: govorilka/fluxer_app_proxy:local
+    build:
+      context: ../..
+      dockerfile: fluxer_app_proxy/Dockerfile
+      args:
+        FLUXER_APP_PROXY_TIME_FREEZE_ENABLED: "false"
+  admin:
+    image: govorilka/fluxer_admin:local
+    build:
+      context: ../..
+      dockerfile: fluxer_admin/Dockerfile
+  static-proxy:
+    image: govorilka/fluxer_static:local
+    build:
+      context: ../..
+      dockerfile: fluxer_static/Dockerfile

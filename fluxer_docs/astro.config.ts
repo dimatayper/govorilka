@@ -95,7 +95,7 @@ export default defineConfig({
 				'./src/styles/content.css',
 				'./src/styles/route-header.css',
 			],
-			description: 'Fluxer external API and protocol reference.',
+			description: 'Govorilka external API and protocol reference.',
 			expressiveCode: {
 				styleOverrides: {
 					borderColor: 'var(--flx-code-border)',
@@ -152,7 +152,7 @@ export default defineConfig({
 			favicon: '/favicon-32x32.png',
 			logo: {
 				replacesTitle: true,
-				src: path.join(staticDirectory, 'marketing/branding/logo-color.svg'),
+				src: path.join(staticDirectory, 'marketing/branding/govorilka-player-logo.png'),
 			},
 			sidebar: [
 				{
@@ -297,13 +297,13 @@ export default defineConfig({
 			],
 			social: [
 				{
-					href: 'https://github.com/fluxerapp/fluxer',
+					href: 'https://github.com/dimatayper/govorilka',
 					icon: 'github',
 					label: 'GitHub',
 				},
 			],
 			tableOfContents: {maxHeadingLevel: 2, minHeadingLevel: 2},
-			title: 'Fluxer API',
+			title: 'Govorilka API',
 		}),
 		mdx(),
 	],

@@ -299,8 +299,8 @@ export function pushUnsupportedUpdateModal(
 						secondaryText={i18n._(CLOSE_DESCRIPTOR)}
 						onPrimary={() => {
 							const appstreamUrl = isCanaryDesktop()
-								? 'appstream://app.fluxer.FluxerCanary'
-								: 'appstream://app.fluxer.Fluxer';
+								? 'appstream://app.govorilka.GovorilkaCanary'
+								: 'appstream://app.govorilka.Govorilka';
 
 							void openExternalUrl(appstreamUrl);
 						}}

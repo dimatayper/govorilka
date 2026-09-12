@@ -165,7 +165,7 @@ function defaultConfig(): MasterConfig {
 			connection_initiation_secret: '',
 			sso_allow_private_addresses: false,
 			passkeys: {
-				rp_name: 'Fluxer',
+				rp_name: 'Govorilka',
 				rp_id: '',
 				additional_allowed_origins: DEFAULT_PASSKEY_ORIGINS,
 			},
@@ -176,7 +176,7 @@ function defaultConfig(): MasterConfig {
 			},
 			bluesky: {
 				enabled: false,
-				client_name: 'Fluxer',
+				client_name: 'Govorilka',
 				client_uri: '',
 				logo_uri: '',
 				tos_uri: '',
@@ -189,7 +189,7 @@ function defaultConfig(): MasterConfig {
 				enabled: false,
 				provider: 'none',
 				from_email: '',
-				from_name: 'Fluxer',
+				from_name: 'Govorilka',
 				app_base_url: '',
 			},
 			sms: {
@@ -270,7 +270,7 @@ function defaultConfig(): MasterConfig {
 		instance: {
 			self_hosted: false,
 			branding: {
-				product_name: 'Fluxer',
+				product_name: 'Govorilka',
 			},
 			setup: {
 				configured: false,

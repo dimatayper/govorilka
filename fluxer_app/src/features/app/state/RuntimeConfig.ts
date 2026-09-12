@@ -137,7 +137,7 @@ export function normalizeInstanceServices(services?: InstanceServices | null): I
 
 export const DEFAULT_APP_PUBLIC_CONFIG: InstanceAppPublic = {
 	branding: {
-		product_name: 'Fluxer',
+		product_name: 'Govorilka',
 		icon_url: null,
 		symbol_url: null,
 		logo_url: null,

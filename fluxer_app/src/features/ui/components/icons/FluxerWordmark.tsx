@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import RuntimeConfig, {DEFAULT_APP_PUBLIC_CONFIG} from '@app/features/app/state/RuntimeConfig';
-import FluxerWordmarkMonochromeAsset from '@app/media/images/fluxer-logo-wordmark-monochrome.svg?react';
-import FluxerWordmarkAsset from '@app/media/images/fluxer-wordmark.svg?react';
+import GovorilkaPlayerLogo from '@app/media/images/govorilka-player-logo.png';
 import {msg} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
 import {observer} from 'mobx-react-lite';
@@ -32,26 +31,27 @@ export const FluxerWordmark = observer(({variant = 'default', ...props}: FluxerW
 			/>
 		);
 	}
-	if (productName !== DEFAULT_APP_PUBLIC_CONFIG.branding.product_name) {
-		const style: React.CSSProperties = {
-			...(props.style as React.CSSProperties | undefined),
-			alignItems: 'center',
-			display: 'inline-flex',
-			fontWeight: 800,
-			lineHeight: 1,
-		};
-		return (
-			<span
-				className={props.className}
-				style={style}
-				role="img"
-				aria-label={ariaLabel}
-				data-flx={getDataFlx(props, 'ui.icons.fluxer-wordmark.text')}
-			>
-				{productName}
-			</span>
-		);
-	}
-	const Asset = variant === 'monochrome' ? FluxerWordmarkMonochromeAsset : FluxerWordmarkAsset;
-	return <Asset role="img" aria-label={ariaLabel} data-flx="ui.icons.fluxer-wordmark.img" {...props} />;
+	const style: React.CSSProperties = {
+		...(props.style as React.CSSProperties | undefined),
+		alignItems: 'center',
+		display: 'inline-flex',
+		fontWeight: 800,
+		lineHeight: 1,
+		gap: '0.35em',
+	};
+	return (
+		<span
+			className={props.className}
+			style={style}
+			role="img"
+			aria-label={ariaLabel}
+			data-variant={variant}
+			data-flx={getDataFlx(props, 'ui.icons.fluxer-wordmark.text')}
+		>
+			{productName === DEFAULT_APP_PUBLIC_CONFIG.branding.product_name && (
+				<img src={GovorilkaPlayerLogo} alt="" aria-hidden="true" style={{height: '1.35em', width: '1.35em'}} />
+			)}
+			{productName}
+		</span>
+	);
 });

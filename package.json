@@ -1,5 +1,5 @@
 {
-	"name": "fluxer",
+	"name": "govorilka",
 	"private": true,
 	"scripts": {
 		"build": "cargo run -p fluxer-dev -- build",

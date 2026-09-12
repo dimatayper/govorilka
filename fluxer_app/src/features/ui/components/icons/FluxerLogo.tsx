@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
-import FluxerLogoAsset from '@app/media/images/fluxer-logo-color.svg?react';
+import GovorilkaPlayerLogo from '@app/media/images/govorilka-player-logo.png';
 import {msg} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
 import {observer} from 'mobx-react-lite';
@@ -25,5 +25,12 @@ export const FluxerLogo = observer((props: BrandSvgProps) => {
 			/>
 		);
 	}
-	return <FluxerLogoAsset role="img" aria-label={ariaLabel} data-flx="ui.icons.fluxer-logo.img" {...props} />;
+	return (
+		<img
+			{...getImageSizingProps(props)}
+			src={GovorilkaPlayerLogo}
+			alt={ariaLabel}
+			data-flx={getDataFlx(props, 'ui.icons.fluxer-logo.img')}
+		/>
+	);
 });
