@@ -73,7 +73,7 @@ const getViewportSplashSize = (): MediaProxyImageSize => {
 	return snapWideAssetImageSize(cssWidth);
 };
 
-const DEFAULT_AVATAR_ASSET_VERSION = '1';
+const DEFAULT_AVATAR_ASSET_VERSION = '2';
 
 export const getDefaultAvatarURLForIndex = (index: number): string =>
 	cdnUrl(`avatars/${index}.png?v=${DEFAULT_AVATAR_ASSET_VERSION}`);
