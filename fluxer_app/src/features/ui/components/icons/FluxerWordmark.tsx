@@ -51,7 +51,7 @@ export const FluxerWordmark = observer(({variant = 'default', ...props}: FluxerW
 			{productName === DEFAULT_APP_PUBLIC_CONFIG.branding.product_name && (
 				<img src={GovorilkaPlayerLogo} alt="" aria-hidden="true" style={{height: '1.35em', width: '1.35em'}} />
 			)}
-			{productName}
+			<span>{productName}</span>
 		</span>
 	);
 });

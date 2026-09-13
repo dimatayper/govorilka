@@ -1275,7 +1275,7 @@ console.log('self-hosting guide against deploy/self-hosting');
 	}
 
 	const shippedAssets = (await readdir(path.join(REPO_ROOT, 'deploy/self-hosting')))
-		.filter((entry) => entry !== '.gitignore')
+		.filter((entry) => entry !== '.gitignore' && entry !== '.env')
 		.sort();
 	const shellStackFiles = shellRows('fluxer_stack_files', 'FILES', 'the install.sh download list');
 	const powershellStackFiles: Array<string> = [];

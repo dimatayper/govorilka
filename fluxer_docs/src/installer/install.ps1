@@ -102,9 +102,12 @@ $FluxerExitInterrupted = 130
 
 $FluxerStackFiles = @(
 	'docker-compose.yml'
+	'docker-compose.local.yml'
 	'docker-compose.proxy.yml'
 	'tunnel.compose.yml'
 	'Caddyfile'
+	'Caddyfile.local'
+	'LOCAL.md'
 	'.env.example'
 )
 
