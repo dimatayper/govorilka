@@ -1,0 +1,79 @@
+name: build Windows desktop test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows-x64:
+    name: Windows x64 portable test build
+    runs-on: windows-2025
+    timeout-minutes: 120
+    env:
+      BUILD_CHANNEL: stable
+      PUBLIC_RELEASE_CHANNEL: stable
+      PUBLIC_BUILD_VERSION: test-${{ github.run_number }}
+      ELECTRON_ARCH: x64
+      FLUXER_DESKTOP_PRODUCTION: "true"
+      NODE_ENV: production
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: "1.93.0"
+          targets: x86_64-pc-windows-msvc
+
+      - name: Set up MSVC
+        uses: TheMrMilchmann/setup-msvc-dev@v3
+        with:
+          arch: amd64
+
+      - name: Enable pnpm
+        shell: pwsh
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.29.3 --activate
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Set stable build channel
+        working-directory: fluxer_desktop
+        run: cargo run --locked --quiet --manifest-path ../tools/ci/Cargo.toml -- build-desktop --step set_build_channel
+
+      - name: Build desktop and native Windows modules
+        working-directory: fluxer_desktop
+        run: pnpm build
+
+      - name: Package unpacked Windows application
+        working-directory: fluxer_desktop
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+        run: pnpm exec electron-builder --dir --config electron-builder.config.cjs --win --x64
+
+      - name: Create portable ZIP
+        shell: pwsh
+        run: Compress-Archive -Path fluxer_desktop/dist-electron/win-unpacked/* -DestinationPath Govorilka-Windows-x64-portable.zip
+
+      - name: Upload portable build
+        uses: actions/upload-artifact@v4
+        with:
+          name: Govorilka-Windows-x64-portable
+          path: Govorilka-Windows-x64-portable.zip
+          if-no-files-found: error
+          retention-days: 14
