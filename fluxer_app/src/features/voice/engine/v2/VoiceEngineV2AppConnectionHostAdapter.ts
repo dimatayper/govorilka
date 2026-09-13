@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import assert from 'node:assert/strict';
-import {isElectronPlatform} from '@app/features/platform/types/Platform';
 import {Logger} from '@app/features/platform/utils/AppLogger';
 import {Store} from '@app/features/voice/engine/Store';
 import {sendVoiceStateDisconnect} from '@app/features/voice/engine/VoiceChannelConnector';
@@ -189,14 +188,6 @@ function createRoomConnectOptions(): RoomConnectOptions {
 		autoSubscribe: false,
 	};
 	assert.equal(connectOptions.autoSubscribe, false, 'LiveKit connect options must not auto-subscribe');
-	if (isElectronPlatform()) {
-		connectOptions.rtcConfig = {iceTransportPolicy: 'relay'};
-		assert.equal(
-			connectOptions.rtcConfig.iceTransportPolicy,
-			'relay',
-			'Electron LiveKit connects must force relay ICE',
-		);
-	}
 	return connectOptions;
 }
 
