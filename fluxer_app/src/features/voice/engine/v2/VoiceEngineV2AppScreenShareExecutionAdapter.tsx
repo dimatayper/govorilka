@@ -157,6 +157,7 @@ class VoiceEngineV2AppScreenShareExecutionAdapter extends Store {
 	private endedScreenShareStopInFlight: Promise<void> | null = null;
 	encoderVerificationTimer: NodeJS.Timeout | null = null;
 	private readonly verifiedCodecCorrectionsByTrack = new WeakMap<MediaStreamTrack, number>();
+	private readonly encoderRecoveryParticipants = new WeakSet<LocalParticipant>();
 	sourceLifecycleBridge: VoiceEngineV2AppSourceLifecycleBridge | null = null;
 
 	readonly liveKitFlows: VoiceEngineV2AppScreenShareLiveKitFlows;
@@ -438,18 +439,28 @@ class VoiceEngineV2AppScreenShareExecutionAdapter extends Store {
 		failedCodec: VideoCodec,
 	): Promise<void> {
 		if (!this.isScreenShareTrackPublishedInternal(participant, track)) return;
-		await ScreenShareCodecNegotiation.publishLocalCapabilities(room, 'manual');
-		const codec = ScreenShareCodecNegotiation.selectScreenShareCodec(VoiceSettings.getPreferredScreenShareCodec());
-		if (codec !== failedCodec) {
-			const recovered = await this.liveKitFlows.republishActiveShareWithCodec(room, track, codec);
-			if (recovered) return;
+		if (this.encoderRecoveryParticipants.has(participant)) return;
+		this.encoderRecoveryParticipants.add(participant);
+		try {
+			// Publishing capabilities also notifies the negotiation listener. Recovery owns
+			// this replacement, so that listener must not start a second unpublish/publish.
+			await ScreenShareCodecNegotiation.publishLocalCapabilities(room, 'manual');
+			if (!this.isScreenShareTrackPublishedInternal(participant, track)) return;
+			const codec = ScreenShareCodecNegotiation.selectScreenShareCodec(VoiceSettings.getPreferredScreenShareCodec());
+			if (codec !== failedCodec) {
+				const recovered = await this.liveKitFlows.republishActiveShareWithCodec(room, track, codec);
+				if (recovered) return;
+			}
+			this.stopScreenShareAfterEncoderFailure(room, participant, track, failedCodec, 'stalled');
+		} finally {
+			this.encoderRecoveryParticipants.delete(participant);
 		}
-		this.stopScreenShareAfterEncoderFailure(room, participant, track, failedCodec, 'stalled');
 	}
 
 	async republishActiveScreenShareForNegotiatedCodecInternal(room: Room | null, codec: VideoCodec): Promise<void> {
 		const participant = room?.localParticipant;
 		if (!room || !participant) return;
+		if (this.encoderRecoveryParticipants.has(participant)) return;
 		const publication = participant.getTrackPublication(Track.Source.ScreenShare);
 		const track = publication?.videoTrack as LocalVideoTrack | undefined;
 		if (!track || !this.isScreenShareTrackPublishedInternal(participant, track)) return;
@@ -471,14 +482,20 @@ class VoiceEngineV2AppScreenShareExecutionAdapter extends Store {
 		action: Extract<ScreenShareEncoderVerificationAction, {kind: 'correct-negotiated'}>,
 	): Promise<void> {
 		if (!this.isScreenShareTrackPublishedInternal(participant, track)) return;
-		const mediaStreamTrack = track.mediaStreamTrack;
-		const corrections = this.verifiedCodecCorrectionsByTrack.get(mediaStreamTrack) ?? 0;
-		if (corrections < SCREEN_SHARE_VERIFIED_CODEC_CORRECTION_MAX && action.alternative) {
-			this.verifiedCodecCorrectionsByTrack.set(mediaStreamTrack, corrections + 1);
-			const recovered = await this.liveKitFlows.republishActiveShareWithCodec(room, track, action.alternative);
-			if (recovered) return;
+		if (this.encoderRecoveryParticipants.has(participant)) return;
+		this.encoderRecoveryParticipants.add(participant);
+		try {
+			const mediaStreamTrack = track.mediaStreamTrack;
+			const corrections = this.verifiedCodecCorrectionsByTrack.get(mediaStreamTrack) ?? 0;
+			if (corrections < SCREEN_SHARE_VERIFIED_CODEC_CORRECTION_MAX && action.alternative) {
+				this.verifiedCodecCorrectionsByTrack.set(mediaStreamTrack, corrections + 1);
+				const recovered = await this.liveKitFlows.republishActiveShareWithCodec(room, track, action.alternative);
+				if (recovered) return;
+			}
+			this.stopScreenShareAfterEncoderFailure(room, participant, track, action.requested, 'codec-policy');
+		} finally {
+			this.encoderRecoveryParticipants.delete(participant);
 		}
-		this.stopScreenShareAfterEncoderFailure(room, participant, track, action.requested, 'codec-policy');
 	}
 
 	private stopScreenShareAfterEncoderFailure(
@@ -488,6 +505,7 @@ class VoiceEngineV2AppScreenShareExecutionAdapter extends Store {
 		codec: VideoCodec,
 		cause: 'stalled' | 'codec-policy',
 	): void {
+		if (!this.isScreenShareTrackPublishedInternal(participant, track)) return;
 		if (cause === 'stalled') {
 			logger.error('Screen share encoder produced no frames and no other codec took over; disabling screen share', {
 				codec,
@@ -540,6 +558,7 @@ class VoiceEngineV2AppScreenShareExecutionAdapter extends Store {
 			() => sender.getStats(),
 			codec,
 			(failure) => {
+				if (track.sender !== sender || !this.isScreenShareTrackPublishedInternal(participant, track)) return;
 				const action = resolveScreenShareEncoderVerificationAction(failure);
 				switch (action.kind) {
 					case 'ignore-repeated-stall':
@@ -569,7 +588,7 @@ class VoiceEngineV2AppScreenShareExecutionAdapter extends Store {
 						return;
 					case 'correct-negotiated':
 						recordScreenShareEncoderVerification('correct-negotiated', action.negotiated);
-						logger.warn('Screen share is sending a codec outside the publish policy', {
+						logger.warn('Republishing screen share to correct the advertised codec or publish policy', {
 							requested: action.requested,
 							negotiated: action.negotiated,
 							alternative: action.alternative,

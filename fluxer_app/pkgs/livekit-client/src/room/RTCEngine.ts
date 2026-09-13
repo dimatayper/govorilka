@@ -1676,8 +1676,10 @@ export function selectPublisherCodecPreferences(
 	const selected = codecs.filter((entry) => mimeTypes.has(entry.mimeType.toLowerCase()));
 	if (selected.length === 0) return [];
 	const preferred = codec === 'h264' ? preferHardwareH264Codecs(selected) : selected;
-	const rtx = codecs.filter((entry) => entry.mimeType.toLowerCase() === 'video/rtx');
-	return [...preferred, ...rtx];
+	// LiveKit/Pion retains the negotiated codecs for the bundled transport. Keep
+	// alternatives in the first offer so later tracks can use a different codec.
+	const remaining = codecs.filter((entry) => !mimeTypes.has(entry.mimeType.toLowerCase()));
+	return [...preferred, ...remaining];
 }
 
 export type EngineEventCallbacks = {

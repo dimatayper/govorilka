@@ -602,7 +602,17 @@ export function resolveScreenShareEncoderVerificationAction(
 	}
 	const disallowed = failure.activeCodecs.filter((codec) => !isVideoCodecAllowedForPublish(codec));
 	if (disallowed.length === 0) {
-		return {kind: 'accept-negotiated', requested: failure.codec, negotiated: failure.activeCodecs};
+		if (failure.activeCodecs.length === 0 || failure.activeCodecs.includes(failure.codec)) {
+			return {kind: 'accept-negotiated', requested: failure.codec, negotiated: failure.activeCodecs};
+		}
+		// An allowed encoder is not enough: LiveKit subscribers still use the
+		// advertised publication codec. Republish to align it with the RTP stream.
+		return {
+			kind: 'correct-negotiated',
+			requested: failure.codec,
+			negotiated: failure.activeCodecs,
+			alternative: failure.activeCodecs[0],
+		};
 	}
 	return {
 		kind: 'correct-negotiated',

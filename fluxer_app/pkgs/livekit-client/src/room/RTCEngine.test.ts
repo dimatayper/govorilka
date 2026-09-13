@@ -82,10 +82,12 @@ describe('selectPublisherCodecPreferences', () => {
 		expect(preferences).toEqual([constrainedBaselineMode1, constrainedBaselineMode0, highProfile]);
 	});
 
-	it('keeps non-H.264 codecs in browser capability order and appends RTX', () => {
+	it('prioritizes the requested codec without discarding alternatives needed by later bundled tracks', () => {
 		const vp9 = codec('video/VP9');
 		const vp8 = codec('video/VP8');
 		const rtx = codec('video/rtx');
-		expect(selectPublisherCodecPreferences('vp9', [vp8, rtx, vp9])).toEqual([vp9, rtx]);
+		const h264 = codec('video/H264');
+		expect(selectPublisherCodecPreferences('vp9', [vp8, rtx, vp9, h264])).toEqual([vp9, vp8, rtx, h264]);
+		expect(selectPublisherCodecPreferences('h264', [vp8, rtx, vp9, h264])).toEqual([h264, vp8, rtx, vp9]);
 	});
 });

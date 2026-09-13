@@ -264,8 +264,25 @@ describe('video publish codec policy', () => {
 		expect(getCodecCapabilityReport().h264.supported).toBe(true);
 		expect(
 			resolveScreenShareEncoderVerificationAction({reason: 'codec-mismatch', codec: 'h264', activeCodecs: ['vp9']}),
-		).toEqual({kind: 'accept-negotiated', requested: 'h264', negotiated: ['vp9']});
+		).toEqual({kind: 'correct-negotiated', requested: 'h264', negotiated: ['vp9'], alternative: 'vp9'});
 		expect(isVideoCodecAllowedForPublish('h264')).toBe(true);
+	});
+
+	it('republishes a VP9 publication when the actual encoder sends VP8', () => {
+		expect(
+			resolveScreenShareEncoderVerificationAction({reason: 'codec-mismatch', codec: 'vp9', activeCodecs: ['vp8']}),
+		).toEqual({kind: 'correct-negotiated', requested: 'vp9', negotiated: ['vp8'], alternative: 'vp8'});
+		expect(isVideoCodecAllowedForPublish('vp9')).toBe(true);
+	});
+
+	it('does not replace the primary codec when it is active alongside a backup', () => {
+		expect(
+			resolveScreenShareEncoderVerificationAction({
+				reason: 'codec-mismatch',
+				codec: 'vp9',
+				activeCodecs: ['vp9', 'h264'],
+			}),
+		).toEqual({kind: 'accept-negotiated', requested: 'vp9', negotiated: ['vp9', 'h264']});
 	});
 
 	it('still blacklists a codec whose encoder stalled, and only warns about it once', () => {
