@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="260" viewBox="0 0 880 260" role="img" aria-labelledby="title description">
+  <title id="title">Govorilka</title>
+  <desc id="description">Govorilka mascot and wordmark</desc>
+  <rect width="880" height="260" rx="40" fill="#4a3fdb"/>
+  <image href="govorilka-player-logo.png" x="10" y="10" width="240" height="240"/>
+  <text x="270" y="164" fill="#ffffff" font-family="Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="96" font-weight="700" letter-spacing="-3">Govorilka</text>
+</svg>
