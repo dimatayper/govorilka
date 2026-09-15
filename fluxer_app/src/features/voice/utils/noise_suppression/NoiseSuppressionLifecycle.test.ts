@@ -6,7 +6,14 @@ import {removeVoiceInputProcessor, syncVoiceInputProcessor} from '@app/features/
 import type {LocalAudioTrack, Track, TrackProcessor} from 'livekit-client';
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 
-const settings = vi.hoisted(() => ({configVersion: 0, backend: 'gate', inputVolume: 150, warn: vi.fn()}));
+const settings = vi.hoisted(() => ({
+	configVersion: 0,
+	backend: 'gate',
+	inputVolume: 150,
+	transmitMode: 'push_to_talk',
+	rms: 0,
+	warn: vi.fn(),
+}));
 
 vi.mock('@app/features/platform/utils/AppLogger', () => ({
 	Logger: class {
@@ -15,8 +22,17 @@ vi.mock('@app/features/platform/utils/AppLogger', () => ({
 		warn = settings.warn;
 	},
 }));
-vi.mock('@app/features/input/state/InputKeybind', () => ({default: {transmitMode: 'push_to_talk'}}));
-vi.mock('@app/features/voice/state/VoiceSettings', () => ({default: {getInputVolume: () => settings.inputVolume}}));
+vi.mock('@app/features/input/state/InputKeybind', () => ({
+	default: {
+		get transmitMode() {
+			return settings.transmitMode;
+		},
+		isPushToMuteEffective: () => false,
+	},
+}));
+vi.mock('@app/features/voice/state/VoiceSettings', () => ({
+	default: {getInputVolume: () => settings.inputVolume, getVadAutoSensitivity: () => false, getVadThreshold: () => 50},
+}));
 vi.mock('@app/features/voice/utils/VoiceProcessingProfile', () => ({
 	getActiveInputDeviceLabel: () => 'microphone',
 	resolveVoiceProcessingFromStateForDeviceLabel: () => ({
@@ -43,7 +59,7 @@ vi.mock('@app/features/voice/utils/noise_suppression/NoiseSuppressionRuntime', (
 	}),
 }));
 vi.mock('@app/features/voice/engine/v2/VoiceEngineV2AppMicrophoneTransaction', () => ({
-	computeSpeakingDetectorRms: () => 0,
+	computeSpeakingDetectorRms: () => settings.rms,
 }));
 vi.mock('@app/features/voice/utils/DeepFilterNoiseProcessor', () => ({
 	buildDeepFilterAudioChain: async () => {
@@ -100,7 +116,9 @@ class FakeNode {
 	channelCount = 2;
 	channelCountMode = 'max';
 	channelInterpretation = 'speakers';
-	gain = {value: 1};
+	gain = {value: 1, setTargetAtTime: vi.fn()};
+	fftSize = 256;
+	getByteTimeDomainData = vi.fn();
 	connect = vi.fn();
 	disconnect = vi.fn();
 }
@@ -119,8 +137,11 @@ const worklets: Array<FakeWorklet> = [];
 
 class FakeContext {
 	readonly sampleRate = 48000;
+	readonly currentTime = 0;
 	readonly destinations: Array<FakeDestination> = [];
 	readonly sources: Array<FakeNode> = [];
+	readonly gains: Array<FakeNode> = [];
+	readonly analysers: Array<FakeNode> = [];
 	readonly close = vi.fn(async () => {});
 	readonly audioWorklet = {
 		addModule: vi.fn(() => {
@@ -142,7 +163,14 @@ class FakeContext {
 		return source;
 	}
 	createGain(): FakeNode {
-		return new FakeNode();
+		const node = new FakeNode();
+		this.gains.push(node);
+		return node;
+	}
+	createAnalyser(): FakeNode {
+		const node = new FakeNode();
+		this.analysers.push(node);
+		return node;
 	}
 }
 
@@ -223,6 +251,8 @@ beforeEach(() => {
 	vi.useFakeTimers();
 	settings.configVersion++;
 	settings.backend = 'gate';
+	settings.transmitMode = 'push_to_talk';
+	settings.rms = 0;
 	settings.warn.mockClear();
 	contexts.length = 0;
 	worklets.length = 0;
@@ -398,6 +428,39 @@ describe('worklet startup ownership', () => {
 });
 
 describe('voice input processor lifecycle', () => {
+	it('gates the filtered signal without interrupting input to the suppressor', async () => {
+		settings.transmitMode = 'voice_activity';
+		const track = new FakeLocalTrack();
+		const install = syncVoiceInputProcessor(track.asLocalAudioTrack());
+		const worklet = await nodeCreated.promise;
+		worklet.signal({type: 'ready'});
+		await install;
+		const {context} = track;
+		const [rawSource, filteredSource] = context.sources;
+		const [inputGain, gate] = context.gains;
+		const [analyser] = context.analysers;
+		expect(rawSource.connect).toHaveBeenCalledWith(inputGain);
+		expect(rawSource.connect).not.toHaveBeenCalledWith(analyser);
+		expect(inputGain.connect).toHaveBeenCalledWith(context.destinations[0]);
+		expect(inputGain.connect).not.toHaveBeenCalledWith(gate);
+		expect(filteredSource.connect).toHaveBeenCalledWith(analyser);
+		expect(filteredSource.connect).toHaveBeenCalledWith(gate);
+		expect(gate.connect).toHaveBeenCalledWith(context.destinations[1]);
+		expect(track.processor?.processedTrack).toBe(context.destinations[1].track);
+		await vi.advanceTimersByTimeAsync(500);
+		expect(gate.gain.setTargetAtTime).not.toHaveBeenCalled();
+		settings.rms = 0.06;
+		await vi.advanceTimersByTimeAsync(50);
+		expect(gate.gain.setTargetAtTime).toHaveBeenLastCalledWith(1, 0, expect.any(Number));
+		settings.rms = 0;
+		await vi.advanceTimersByTimeAsync(500);
+		expect(gate.gain.setTargetAtTime).toHaveBeenLastCalledWith(0, 0, expect.any(Number));
+		await removeVoiceInputProcessor(track.asLocalAudioTrack());
+		expect(filteredSource.disconnect).toHaveBeenCalled();
+		expect(context.destinations.every((destination) => destination.track.readyState === 'ended')).toBe(true);
+		expect(track.rawTrack.readyState).toBe('live');
+	});
+
 	it('keeps microphone audio available when Egorp cannot load', async () => {
 		settings.backend = 'deep_filter';
 		const track = new FakeLocalTrack();

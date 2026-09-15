@@ -163,8 +163,23 @@ class LocalVoiceState implements LocalVoiceConnectionState {
 	}
 
 	private transitionLocalState(event: LocalVoiceStateEvent): void {
+		const previousMute = this.getSelfMute();
+		const previousDeaf = this.getSelfDeaf();
 		this.machineSnapshot = transitionLocalVoiceStateSnapshot(this.machineSnapshot, event);
 		this.applyMachineSnapshotToObservableState();
+		const selfMute = this.getSelfMute();
+		const selfDeaf = this.getSelfDeaf();
+		if (previousMute !== selfMute || previousDeaf !== selfDeaf) {
+			logger.info('Local voice audio state changed', {
+				cause: event.type,
+				connectionId: this.getActiveConnectionId(),
+				previousMute,
+				selfMute,
+				previousDeaf,
+				selfDeaf,
+				mutedByPermission: this.getMutedByPermission(),
+			});
+		}
 		this.notifyListeners();
 	}
 

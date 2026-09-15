@@ -40,6 +40,7 @@ class VoiceInputTrackProcessor implements TrackProcessor<Track.Kind.Audio> {
 	processedTrack?: MediaStreamTrack;
 	private sourceNode: MediaStreamAudioSourceNode | null = null;
 	private gainNode: GainNode | null = null;
+	private filteredSourceNode: MediaStreamAudioSourceNode | null = null;
 	private passthroughDestination: MediaStreamAudioDestinationNode | null = null;
 	private deepFilterChain: DeepFilterAudioChain | null = null;
 	private workletChain: NoiseSuppressionWorkletChain | null = null;
@@ -122,7 +123,6 @@ class VoiceInputTrackProcessor implements TrackProcessor<Track.Kind.Audio> {
 			this.gainNode = opts.audioContext.createGain();
 			this.gainNode.gain.value = inputVoiceVolumePercentToGain(this.inputVolumePercent);
 			this.sourceNode.connect(this.gainNode);
-			const chainTail = this.gateEnabled ? this.startVoiceActivityGate(opts.audioContext) : this.gainNode;
 			if (this.workletBackend != null) {
 				const chain = await this.buildWorkletChain(opts, this.workletBackend, generation, controller.signal);
 				if (generation !== this.buildGeneration) {
@@ -131,8 +131,8 @@ class VoiceInputTrackProcessor implements TrackProcessor<Track.Kind.Audio> {
 				}
 				if (chain) {
 					this.workletChain = chain;
-					chainTail.connect(chain.inputDestination);
-					this.processedTrack = chain.processedTrack;
+					this.gainNode.connect(chain.inputDestination);
+					this.connectSuppressedOutput(opts.audioContext, chain.processedTrack);
 					return;
 				}
 			}
@@ -159,18 +159,15 @@ class VoiceInputTrackProcessor implements TrackProcessor<Track.Kind.Audio> {
 				}
 				if (chain) {
 					this.deepFilterChain = chain;
-					chainTail.connect(chain.inputDestination);
-					this.processedTrack = chain.processedTrack;
+					this.gainNode.connect(chain.inputDestination);
+					this.connectSuppressedOutput(opts.audioContext, chain.processedTrack);
 					return;
 				}
 			}
-			this.passthroughDestination = opts.audioContext.createMediaStreamDestination();
-			chainTail.connect(this.passthroughDestination);
-			const passthroughTrack = this.passthroughDestination.stream.getAudioTracks()[0];
-			if (!passthroughTrack) {
-				throw new Error('Voice input processor produced no passthrough output track');
-			}
-			this.processedTrack = passthroughTrack;
+			const tail = this.gateEnabled
+				? this.startVoiceActivityGate(opts.audioContext, this.gainNode, this.sourceNode)
+				: this.gainNode;
+			this.connectOutput(opts.audioContext, tail);
 		} catch (error) {
 			if (generation === this.buildGeneration) await this.teardown();
 			throw error;
@@ -208,17 +205,36 @@ class VoiceInputTrackProcessor implements TrackProcessor<Track.Kind.Audio> {
 		}
 	}
 
-	private startVoiceActivityGate(audioContext: BaseAudioContext): AudioNode {
-		const gainNode = this.gainNode;
-		if (!gainNode || !this.sourceNode) {
-			throw new Error('Voice input processor gate requires a built input chain');
+	private connectSuppressedOutput(audioContext: AudioContext, track: MediaStreamTrack): void {
+		if (!this.gateEnabled) {
+			this.processedTrack = track;
+			return;
 		}
+		// Keep suppression fed continuously and measure its output before gating transmission.
+		const source = audioContext.createMediaStreamSource(new MediaStream([track]));
+		this.filteredSourceNode = source;
+		this.connectOutput(audioContext, this.startVoiceActivityGate(audioContext, source, source));
+	}
+
+	private connectOutput(audioContext: AudioContext, tail: AudioNode): void {
+		this.passthroughDestination = audioContext.createMediaStreamDestination();
+		tail.connect(this.passthroughDestination);
+		const track = this.passthroughDestination.stream.getAudioTracks()[0];
+		if (!track) throw new Error('Voice input processor produced no output track');
+		this.processedTrack = track;
+	}
+
+	private startVoiceActivityGate(
+		audioContext: BaseAudioContext,
+		input: AudioNode,
+		detectorInput: AudioNode,
+	): AudioNode {
 		const gateNode = audioContext.createGain();
 		gateNode.gain.value = 0;
-		gainNode.connect(gateNode);
+		input.connect(gateNode);
 		const analyserNode = audioContext.createAnalyser();
 		analyserNode.fftSize = GATE_ANALYSER_FFT_SIZE;
-		this.sourceNode.connect(analyserNode);
+		detectorInput.connect(analyserNode);
 		this.gateNode = gateNode;
 		this.gateAnalyserNode = analyserNode;
 		this.gateSamples = new Uint8Array(analyserNode.fftSize);
@@ -272,6 +288,7 @@ class VoiceInputTrackProcessor implements TrackProcessor<Track.Kind.Audio> {
 			this.gateTimerId = null;
 		}
 		this.sourceNode?.disconnect();
+		this.filteredSourceNode?.disconnect();
 		this.gainNode?.disconnect();
 		this.gateNode?.disconnect();
 		this.gateAnalyserNode?.disconnect();
@@ -280,6 +297,7 @@ class VoiceInputTrackProcessor implements TrackProcessor<Track.Kind.Audio> {
 		const deepFilterChain = this.deepFilterChain;
 		const processedTrack = this.processedTrack;
 		this.sourceNode = null;
+		this.filteredSourceNode = null;
 		this.gainNode = null;
 		this.gateNode = null;
 		this.gateAnalyserNode = null;
