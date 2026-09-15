@@ -20,6 +20,11 @@ import {
 } from '@app/features/voice/components/modals/ScreenSharePickerModal';
 import styles from '@app/features/voice/components/VoiceConnectionStatus.module.css';
 import {VoiceCameraSettingsMenu} from '@app/features/voice/components/VoiceSettingsMenus';
+import {
+	GovorilkaCameraIcon,
+	GovorilkaCameraOffIcon,
+	GovorilkaScreenShareIcon,
+} from '@app/features/voice/components/voice_connection_status/GovorilkaVoiceIcons';
 import {selectLocalParticipantControlsViewState} from '@app/features/voice/components/voice_connection_status/LocalParticipantControlsStateMachine';
 import {logger} from '@app/features/voice/components/voice_connection_status/shared';
 import MediaEngine, {useMediaEngineVersion} from '@app/features/voice/engine/MediaEngineFacade';
@@ -37,7 +42,6 @@ import {Permissions} from '@fluxer/constants/src/ChannelConstants';
 import {VOICE_CHANNEL_CAMERA_USER_LIMIT} from '@fluxer/constants/src/LimitConstants';
 import {msg} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
-import {CameraIcon, CameraSlashIcon, MonitorPlayIcon} from '@phosphor-icons/react';
 import {clsx} from 'clsx';
 import {observer} from 'mobx-react-lite';
 import {type MouseEvent as ReactMouseEvent, useCallback} from 'react';
@@ -214,14 +218,12 @@ export const LocalParticipantControls = observer(() => {
 						data-flx="voice.voice-connection-status.local-participant-controls.media-button.undefined"
 					>
 						{isCameraEnabled ? (
-							<CameraIcon
-								weight="fill"
+							<GovorilkaCameraIcon
 								className={styles.mediaIcon}
 								data-flx="voice.voice-connection-status.local-participant-controls.media-icon"
 							/>
 						) : (
-							<CameraSlashIcon
-								weight="fill"
+							<GovorilkaCameraOffIcon
 								className={styles.mediaIcon}
 								data-flx="voice.voice-connection-status.local-participant-controls.media-icon--2"
 							/>
@@ -259,8 +261,7 @@ export const LocalParticipantControls = observer(() => {
 						aria-pressed={isScreenShareEnabled}
 						data-flx="voice.voice-connection-status.local-participant-controls.media-button.undefined--2"
 					>
-						<MonitorPlayIcon
-							weight="fill"
+						<GovorilkaScreenShareIcon
 							className={styles.mediaIcon}
 							data-flx="voice.voice-connection-status.local-participant-controls.media-icon--3"
 						/>

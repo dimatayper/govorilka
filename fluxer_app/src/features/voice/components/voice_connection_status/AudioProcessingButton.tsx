@@ -3,7 +3,7 @@
 import FocusRing from '@app/features/ui/focus_ring/FocusRing';
 import {Tooltip} from '@app/features/ui/tooltip/Tooltip';
 import styles from '@app/features/voice/components/VoiceConnectionStatus.module.css';
-import {WaveformIcon} from '@phosphor-icons/react';
+import {GovorilkaAudioProcessingIcon} from '@app/features/voice/components/voice_connection_status/GovorilkaVoiceIcons';
 import {clsx} from 'clsx';
 
 interface AudioProcessingButtonProps {
@@ -25,8 +25,7 @@ export function AudioProcessingButton({active, label, onClick, pressed}: AudioPr
 					aria-pressed={pressed}
 					data-flx="voice.voice-connection-status.audio-processing-button.control-button.click"
 				>
-					<WaveformIcon
-						weight="fill"
+					<GovorilkaAudioProcessingIcon
 						className={styles.icon}
 						data-flx="voice.voice-connection-status.audio-processing-button.icon"
 					/>
