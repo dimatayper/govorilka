@@ -34,6 +34,8 @@ interface CreateMicTestAudioGraphOptions {
 	deepFilterNoiseReductionLevel: number;
 	workletBackend: NoiseSuppressionWorkletBackend | null;
 	suppressionStrength: number;
+	onRuntimeFailure?: (error: Error) => void;
+	signal?: AbortSignal;
 }
 
 export async function createMicTestAudioGraph({
@@ -47,7 +49,10 @@ export async function createMicTestAudioGraph({
 	deepFilterNoiseReductionLevel,
 	workletBackend,
 	suppressionStrength,
+	onRuntimeFailure,
+	signal,
 }: CreateMicTestAudioGraphOptions): Promise<MicTestAudioGraph> {
+	signal?.throwIfAborted();
 	const source = audioContext.createMediaStreamSource(new MediaStream([sourceTrack]));
 	const inputGainNode = audioContext.createGain();
 	inputGainNode.gain.value = inputGain;
@@ -62,6 +67,8 @@ export async function createMicTestAudioGraph({
 			deepFilterChain = await buildDeepFilterAudioChain({
 				audioContext,
 				noiseReductionLevel: deepFilterNoiseReductionLevel,
+				onRuntimeFailure,
+				signal,
 			});
 			inputGainNode.connect(deepFilterChain.inputDestination);
 			suppressedSource = audioContext.createMediaStreamSource(new MediaStream([deepFilterChain.processedTrack]));
@@ -71,6 +78,8 @@ export async function createMicTestAudioGraph({
 				audioContext,
 				backend: workletBackend,
 				suppressionStrength,
+				onRuntimeFailure,
+				signal,
 			});
 			inputGainNode.connect(workletChain.inputDestination);
 			suppressedSource = audioContext.createMediaStreamSource(new MediaStream([workletChain.processedTrack]));

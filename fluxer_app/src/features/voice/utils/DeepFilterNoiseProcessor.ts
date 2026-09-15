@@ -4,8 +4,9 @@ import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
 import {Logger} from '@app/features/platform/utils/AppLogger';
 import {createVoiceAudioContext} from '@app/features/voice/engine/VoiceSharedAudioContext';
 import VoiceSettings from '@app/features/voice/state/VoiceSettings';
-import {DeepFilterNoiseFilterProcessor} from 'deepfilternet3-noise-filter';
+import {DeepFilterNet3Core, DeepFilterNoiseFilterProcessor} from 'deepfilternet3-noise-filter';
 import type {LocalAudioTrack} from 'livekit-client';
+import {createEgorpWorklet} from './egorp/CreateEgorpWorklet';
 
 const logger = new Logger('DeepFilterNoiseProcessor');
 const DEEP_FILTER_MODEL_SAMPLE_RATE = 48000;
@@ -24,7 +25,7 @@ let activeTrack: LocalAudioTrack | null = null;
 export function createDeepFilterProcessor(
 	noiseReductionLevel = DEFAULT_SUPPRESSION_LEVEL,
 ): DeepFilterNoiseFilterProcessor {
-	const clampedNoiseReductionLevel = Math.max(0, Math.min(100, noiseReductionLevel));
+	const clampedNoiseReductionLevel = normalizeEgorpStrength(noiseReductionLevel);
 	return new DeepFilterNoiseFilterProcessor({
 		sampleRate: DEEP_FILTER_MODEL_SAMPLE_RATE,
 		noiseReductionLevel: clampedNoiseReductionLevel,
@@ -35,30 +36,26 @@ export function createDeepFilterProcessor(
 	});
 }
 
+/** Never run a 48 kHz neural model at the capture device's native rate. */
 export function resolveDeepFilterAudioContext(
-	sourceContext: AudioContext,
+	_sourceContext: AudioContext,
 	feedTrack: MediaStreamTrack,
 ): AudioContext | null {
-	const modelRateContext = createVoiceAudioContext({
-		latencyHint: 'interactive',
-		sampleRate: DEEP_FILTER_MODEL_SAMPLE_RATE,
-	});
-	if (!modelRateContext) return null;
-	if (modelRateContext.sampleRate === sourceContext.sampleRate) return modelRateContext;
+	const context = createVoiceAudioContext({latencyHint: 'interactive', sampleRate: DEEP_FILTER_MODEL_SAMPLE_RATE});
+	if (!context) return null;
 	try {
-		modelRateContext.createMediaStreamSource(new MediaStream([feedTrack])).disconnect();
-		return modelRateContext;
+		if (context.sampleRate !== DEEP_FILTER_MODEL_SAMPLE_RATE) throw new Error('Unsupported model sample rate');
+		context.createMediaStreamSource(new MediaStream([feedTrack])).disconnect();
+		return context;
 	} catch (error) {
-		logger.info('DeepFilter cannot read the capture graph at the model rate; running it at the capture rate', {
-			modelSampleRate: modelRateContext.sampleRate,
-			captureSampleRate: sourceContext.sampleRate,
-			error,
-		});
+		logger.info('Egorp cannot connect the microphone at 48 kHz', error);
+		void context.close().catch(() => undefined);
+		return null;
 	}
-	void modelRateContext.close().catch((error) => {
-		logger.debug('Failed to close the rejected DeepFilter AudioContext', error);
-	});
-	return createVoiceAudioContext({latencyHint: 'interactive', sampleRate: sourceContext.sampleRate});
+}
+
+export function normalizeEgorpStrength(level: number): number {
+	return Number.isFinite(level) ? Math.max(0, Math.min(100, level)) : DEFAULT_SUPPRESSION_LEVEL;
 }
 
 export interface DeepFilterAudioChain {
@@ -81,117 +78,163 @@ function safeStopTrack(track: MediaStreamTrack | null | undefined): void {
 	} catch {}
 }
 
+export const EGORP_STARTUP_TIMEOUT_MS = 8000;
+
+/** One capture bridge; filtering and peak compression share the model's clock. */
 export async function buildDeepFilterAudioChain(opts: {
 	audioContext: AudioContext;
 	noiseReductionLevel?: number;
+	/** Legacy model is retained for regression comparisons. Calls use DPDFNet2. */
+	model?: 'dpdfnet2' | 'deepfilternet3';
+	signal?: AbortSignal;
+	onRuntimeFailure?: (error: Error) => void;
 }): Promise<DeepFilterAudioChain> {
-	const {audioContext} = opts;
-	const noiseReductionLevel = Math.max(
-		0,
-		Math.min(100, opts.noiseReductionLevel ?? VoiceSettings.getDeepFilterNoiseSuppressionLevel()),
-	);
-	const inputDestination = audioContext.createMediaStreamDestination();
-	const inputTrack = inputDestination.stream.getAudioTracks()[0];
-	if (!inputTrack) {
-		throw new Error('buildDeepFilterAudioChain: missing input destination track');
-	}
-	const hpfSource = audioContext.createMediaStreamSource(new MediaStream([inputTrack]));
-	const highPass = audioContext.createBiquadFilter();
-	highPass.type = 'highpass';
-	highPass.frequency.value = HIGH_PASS_FREQUENCY_HZ;
-	highPass.Q.value = HIGH_PASS_Q;
-	hpfSource.connect(highPass);
-	const deepFilterFeedDestination = audioContext.createMediaStreamDestination();
-	highPass.connect(deepFilterFeedDestination);
-	const deepFilterFeedTrack = deepFilterFeedDestination.stream.getAudioTracks()[0];
-	if (!deepFilterFeedTrack) {
-		safeDisconnect(hpfSource);
-		safeDisconnect(highPass);
-		safeDisconnect(inputDestination);
-		safeDisconnect(deepFilterFeedDestination);
-		safeStopTrack(inputTrack);
-		throw new Error('buildDeepFilterAudioChain: missing DeepFilter feed track');
-	}
-	const processor = createDeepFilterProcessor(noiseReductionLevel);
-	processor.audioContext = resolveDeepFilterAudioContext(audioContext, deepFilterFeedTrack);
-	const disposeDeepFilterInputGraph = () => {
-		safeDisconnect(inputDestination);
-		safeDisconnect(hpfSource);
-		safeDisconnect(highPass);
-		safeDisconnect(deepFilterFeedDestination);
-		safeStopTrack(inputTrack);
-		safeStopTrack(deepFilterFeedTrack);
-	};
-	try {
-		await processor.init({track: deepFilterFeedTrack});
-	} catch (error) {
-		disposeDeepFilterInputGraph();
-		try {
-			await processor.destroy();
-		} catch (destroyError) {
-			logger.debug('DeepFilter destroy after init failure threw', destroyError);
-		}
-		throw error;
-	}
-	if (!processor.processedTrack) {
-		disposeDeepFilterInputGraph();
-		try {
-			await processor.destroy();
-		} catch (destroyError) {
-			logger.debug('DeepFilter destroy after missing processedTrack threw', destroyError);
-		}
-		throw new Error('DeepFilter init produced no processedTrack');
-	}
-	const limiterSource = audioContext.createMediaStreamSource(new MediaStream([processor.processedTrack]));
-	const limiter = audioContext.createDynamicsCompressor();
-	limiter.threshold.value = LIMITER_THRESHOLD_DB;
-	limiter.knee.value = LIMITER_KNEE_DB;
-	limiter.ratio.value = LIMITER_RATIO;
-	limiter.attack.value = LIMITER_ATTACK_SEC;
-	limiter.release.value = LIMITER_RELEASE_SEC;
-	limiterSource.connect(limiter);
-	const outputDestination = audioContext.createMediaStreamDestination();
-	limiter.connect(outputDestination);
-	const processedTrack = outputDestination.stream.getAudioTracks()[0];
-	if (!processedTrack) {
-		disposeDeepFilterInputGraph();
-		safeDisconnect(limiterSource);
-		safeDisconnect(limiter);
-		safeDisconnect(outputDestination);
-		safeStopTrack(processor.processedTrack);
-		try {
-			await processor.destroy();
-		} catch (destroyError) {
-			logger.debug('DeepFilter destroy after missing output track threw', destroyError);
-		}
-		throw new Error('buildDeepFilterAudioChain: missing limiter output track');
-	}
+	opts.signal?.throwIfAborted();
+	const nodes: Array<AudioNode> = [];
+	const tracks: Array<MediaStreamTrack> = [];
+	let context: AudioContext | null = null;
+	let worklet: AudioWorkletNode | undefined;
 	let disposed = false;
+	let disposeDpdf: (() => void) | undefined;
+	const initialization = new AbortController();
+	const useDpdf = opts.model !== 'deepfilternet3';
+	const core = useDpdf
+		? null
+		: new DeepFilterNet3Core({
+				sampleRate: DEEP_FILTER_MODEL_SAMPLE_RATE,
+				noiseReductionLevel: normalizeEgorpStrength(
+					opts.noiseReductionLevel ?? VoiceSettings.getDeepFilterNoiseSuppressionLevel(),
+				),
+				assetConfig: {cdnUrl: `${RuntimeConfig.staticCdnEndpoint}/libs/deepfilternet3`},
+			});
 	const dispose = async () => {
 		if (disposed) return;
 		disposed = true;
-		safeDisconnect(inputDestination);
-		safeDisconnect(hpfSource);
-		safeDisconnect(highPass);
-		safeDisconnect(deepFilterFeedDestination);
-		safeDisconnect(limiterSource);
-		safeDisconnect(limiter);
-		safeDisconnect(outputDestination);
-		try {
-			await processor.destroy();
-		} catch (error) {
-			logger.warn('Failed to destroy DeepFilter processor in chain dispose', error);
+		initialization.abort();
+		disposeDpdf?.();
+		if (worklet && !useDpdf) {
+			worklet.onprocessorerror = null;
+			worklet.port.onmessage = null;
+			worklet.port.postMessage({type: 'destroy'});
+			worklet.port.close();
 		}
-		safeStopTrack(inputTrack);
-		safeStopTrack(deepFilterFeedTrack);
-		safeStopTrack(processor.processedTrack);
-		safeStopTrack(processedTrack);
+		for (const node of nodes) safeDisconnect(node);
+		for (const track of tracks) safeStopTrack(track);
+		core?.destroy();
+		if (context) await context.close().catch((error) => logger.debug('Egorp context cleanup failed', error));
 	};
-	return {
-		processedTrack,
-		inputDestination,
-		dispose,
+	const destination = (owner: AudioContext): MediaStreamAudioDestinationNode => {
+		const node = owner.createMediaStreamDestination();
+		nodes.push(node);
+		node.channelCount = 1;
+		node.channelCountMode = 'explicit';
+		const track = node.stream.getAudioTracks()[0];
+		if (!track) throw new Error('Egorp produced no audio track');
+		tracks.push(track);
+		return node;
 	};
+	let timeout: ReturnType<typeof setTimeout> | undefined;
+	let onAbort: (() => void) | undefined;
+	try {
+		const inputDestination = destination(opts.audioContext);
+		context = resolveDeepFilterAudioContext(opts.audioContext, tracks[0]);
+		if (!context) throw new Error('Egorp requires a working 48 kHz AudioWorklet context');
+		const modelContext = context;
+		const initialize = async () => {
+			if (useDpdf) {
+				const processor = await createEgorpWorklet({
+					context: modelContext,
+					strength: normalizeEgorpStrength(
+						opts.noiseReductionLevel ?? VoiceSettings.getDeepFilterNoiseSuppressionLevel(),
+					),
+					signal: initialization.signal,
+					onRuntimeFailure: opts.onRuntimeFailure,
+				});
+				if (disposed) {
+					processor.dispose();
+					return;
+				}
+				disposeDpdf = processor.dispose;
+				worklet = processor.node;
+				nodes.push(worklet);
+				if (modelContext.state === 'suspended') await modelContext.resume();
+				return;
+			}
+			if (!core) throw new Error('Missing legacy Egorp model');
+			await core.initialize();
+			if (disposed) {
+				core?.destroy();
+				return;
+			}
+			const node = await core.createAudioWorkletNode(modelContext);
+			if (disposed) {
+				node.port.close();
+				core?.destroy();
+				return;
+			}
+			worklet = node;
+			nodes.push(node);
+			await new Promise<void>((resolve, reject) => {
+				node.onprocessorerror = () => reject(new Error('Egorp model initialization failed'));
+				node.port.onmessage = ({data}: MessageEvent) => {
+					if (data?.type === 'ready') resolve();
+					if (data?.type === 'error') reject(new Error(`Egorp model initialization failed: ${data.message}`));
+				};
+				node.port.start();
+			});
+			if (disposed) return;
+			if (modelContext.state === 'suspended') await modelContext.resume();
+		};
+		await Promise.race([
+			initialize(),
+			new Promise<never>((_, reject) => {
+				timeout = setTimeout(
+					() => reject(new Error('Egorp startup timed out')),
+					useDpdf ? 30000 : EGORP_STARTUP_TIMEOUT_MS,
+				);
+				onAbort = () => reject(opts.signal?.reason);
+				opts.signal?.addEventListener('abort', onAbort, {once: true});
+				if (opts.signal?.aborted) onAbort();
+			}),
+		]);
+		opts.signal?.throwIfAborted();
+		if (!worklet) throw new Error('Egorp produced no audio processor');
+		const source = modelContext.createMediaStreamSource(inputDestination.stream);
+		nodes.push(source);
+		const highPass = modelContext.createBiquadFilter();
+		nodes.push(highPass);
+		highPass.type = 'highpass';
+		highPass.frequency.value = HIGH_PASS_FREQUENCY_HZ;
+		highPass.Q.value = HIGH_PASS_Q;
+		const limiter = modelContext.createDynamicsCompressor();
+		nodes.push(limiter);
+		limiter.threshold.value = LIMITER_THRESHOLD_DB;
+		limiter.knee.value = LIMITER_KNEE_DB;
+		limiter.ratio.value = LIMITER_RATIO;
+		limiter.attack.value = LIMITER_ATTACK_SEC;
+		limiter.release.value = LIMITER_RELEASE_SEC;
+		const output = destination(modelContext);
+		source.connect(highPass).connect(worklet).connect(limiter).connect(output);
+		let failed = false;
+		const reportFailure = () => {
+			if (disposed || failed) return;
+			failed = true;
+			opts.onRuntimeFailure?.(new Error('Egorp audio processor failed'));
+		};
+		if (!useDpdf) {
+			worklet.onprocessorerror = reportFailure;
+			worklet.port.onmessage = ({data}: MessageEvent) => {
+				if (data?.type === 'error') reportFailure();
+			};
+		}
+		return {inputDestination, processedTrack: tracks[tracks.length - 1], dispose};
+	} catch (error) {
+		await dispose();
+		throw error;
+	} finally {
+		if (timeout !== undefined) clearTimeout(timeout);
+		if (onAbort) opts.signal?.removeEventListener('abort', onAbort);
+	}
 }
 
 export async function applyDeepFilterProcessor(

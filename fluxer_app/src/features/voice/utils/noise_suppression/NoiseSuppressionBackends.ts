@@ -81,7 +81,7 @@ const DESCRIPTORS: Readonly<Record<VoiceNoiseSuppressionBackend, NoiseSuppressio
 		browserNoiseSuppression: false,
 		preservesInputChannels: false,
 		supportedSampleRates: [48000],
-		requiresWasmSimd: false,
+		requiresWasmSimd: true,
 		usesSuppressionStrength: true,
 	},
 };

@@ -1,0 +1,430 @@
+{
+  "scope": "Predicted MOS on public demos; NOT proof of Krisp parity or speaker identity",
+  "windowing": "upstream_float_end",
+  "scoring_models": {
+    "DNSMOS": "269fbebdb513aa23cddfbb593542ecc540284a91849ac50516870e1ac78f6edd",
+    "pDNSMOS": "9e3a197449ca2177f0997afec3bd6b890117ce2f17b89d6eea7fa0d47272c81c"
+  },
+  "results": [
+    {
+      "sample": "keyboard",
+      "engine": "before",
+      "sha256": "22a4c79b6a1f5ffdc73880691dfc7fa09cf2d3c65d34a76d37957566f8cf61b6",
+      "alignment_samples": 0,
+      "sample_count": 1196250,
+      "DNSMOS": {
+        "SIG": 3.613132820995042,
+        "BAK": 2.1899749402628834,
+        "OVRL": 2.3313688819340688,
+        "windows": 7,
+        "repeated_short_clip": false
+      },
+      "pDNSMOS": {
+        "SIG": 4.435983664373286,
+        "BAK": 2.0256741908177363,
+        "OVRL": 2.7062771223383324,
+        "windows": 7,
+        "repeated_short_clip": false
+      }
+    },
+    {
+      "sample": "keyboard",
+      "engine": "after",
+      "sha256": "a43ecb103744e702d2ffbba63a9691457d9d438a3bf5961a817876c448dd45b8",
+      "alignment_samples": 0,
+      "sample_count": 1196250,
+      "DNSMOS": {
+        "SIG": 3.6629016805275447,
+        "BAK": 4.2176941089953965,
+        "OVRL": 3.4718555505499205,
+        "windows": 7,
+        "repeated_short_clip": false
+      },
+      "pDNSMOS": {
+        "SIG": 4.383182525805217,
+        "BAK": 4.580623233884075,
+        "OVRL": 4.1566529601443,
+        "windows": 7,
+        "repeated_short_clip": false
+      }
+    },
+    {
+      "sample": "keyboard",
+      "engine": "egorp",
+      "sha256": "6a28158e51ff21d94df99f05f6837c1a8aa9963b11a56251678ebc87ac1c913a",
+      "alignment_samples": 1920,
+      "sample_count": 1196250,
+      "DNSMOS": {
+        "SIG": 3.398086400045261,
+        "BAK": 4.1091651373328855,
+        "OVRL": 3.1775267332085377,
+        "windows": 7,
+        "repeated_short_clip": false
+      },
+      "pDNSMOS": {
+        "SIG": 3.2222222140620107,
+        "BAK": 3.5106465551735253,
+        "OVRL": 2.7889397973309893,
+        "windows": 7,
+        "repeated_short_clip": false
+      }
+    },
+    {
+      "sample": "keyboard",
+      "engine": "dpdfnet2_48khz_hr",
+      "sha256": "6cf2e1b14b61cea5ea3299cc53cf4d36e005e36c3c63ebe7bfe38339d01d04de",
+      "alignment_samples": 2400,
+      "sample_count": 1196250,
+      "DNSMOS": {
+        "SIG": 3.667900564722518,
+        "BAK": 4.221276447876079,
+        "OVRL": 3.476470129986415,
+        "windows": 7,
+        "repeated_short_clip": false
+      },
+      "pDNSMOS": {
+        "SIG": 4.338410532364484,
+        "BAK": 4.7106827344521465,
+        "OVRL": 4.1836598460888,
+        "windows": 7,
+        "repeated_short_clip": false
+      }
+    },
+    {
+      "sample": "keyboard",
+      "engine": "dpdfnet8_48khz_hr",
+      "sha256": "db9f32a3deaaae446062b421e019ac0beda65895c9742490c4caa66e69cea92f",
+      "alignment_samples": 2400,
+      "sample_count": 1196250,
+      "DNSMOS": {
+        "SIG": 3.635515335354197,
+        "BAK": 4.213517355670854,
+        "OVRL": 3.4418210661917668,
+        "windows": 7,
+        "repeated_short_clip": false
+      },
+      "pDNSMOS": {
+        "SIG": 4.401315802055238,
+        "BAK": 4.696976486684465,
+        "OVRL": 4.2444300118138925,
+        "windows": 7,
+        "repeated_short_clip": false
+      }
+    },
+    {
+      "sample": "fan",
+      "engine": "before",
+      "sha256": "2bf6664fddfd057cc32fb0ed613cb4fbf54104c28c709058baf90647136e6715",
+      "alignment_samples": 0,
+      "sample_count": 1188000,
+      "DNSMOS": {
+        "SIG": 2.9605849700531697,
+        "BAK": 2.127482016813043,
+        "OVRL": 2.0758543522243995,
+        "windows": 7,
+        "repeated_short_clip": false
+      },
+      "pDNSMOS": {
+        "SIG": 4.372798052224738,
+        "BAK": 2.1352442959483477,
+        "OVRL": 2.7645047012158916,
+        "windows": 7,
+        "repeated_short_clip": false
+      }
+    },
+    {
+      "sample": "fan",
+      "engine": "after",
+      "sha256": "68da8051002ac0bf827f2988f1d41bc4561ba9be6dfc9cf02eb900f7cf2bde6e",
+      "alignment_samples": 0,
+      "sample_count": 1188000,
+      "DNSMOS": {
+        "SIG": 3.2797354666748584,
+        "BAK": 4.090783984705163,
+        "OVRL": 3.0532959048942288,
+        "windows": 7,
+        "repeated_short_clip": false
+      },
+      "pDNSMOS": {
+        "SIG": 3.828545406884758,
+        "BAK": 3.768795896497831,
+        "OVRL": 3.353927575281584,
+        "windows": 7,
+        "repeated_short_clip": false
+      }
+    },
+    {
+      "sample": "fan",
+      "engine": "egorp",
+      "sha256": "c8da80eb765f6551ebec03d62b252755bb952bc00491e18ee060774a2c93d02f",
+      "alignment_samples": 1920,
+      "sample_count": 1188000,
+      "DNSMOS": {
+        "SIG": 3.4930590812999407,
+        "BAK": 4.182004095149113,
+        "OVRL": 3.2950444112902626,
+        "windows": 7,
+        "repeated_short_clip": false
+      },
+      "pDNSMOS": {
+        "SIG": 3.8205048036198397,
+        "BAK": 4.275125996790117,
+        "OVRL": 3.5862166551526444,
+        "windows": 7,
+        "repeated_short_clip": false
+      }
+    },
+    {
+      "sample": "fan",
+      "engine": "dpdfnet2_48khz_hr",
+      "sha256": "02ce499db348417220b8aef66d317a6f7ebdead7d6ee6f0291699c93f43b88b3",
+      "alignment_samples": 2400,
+      "sample_count": 1188000,
+      "DNSMOS": {
+        "SIG": 3.579050177309301,
+        "BAK": 4.186620588532593,
+        "OVRL": 3.381586433302141,
+        "windows": 7,
+        "repeated_short_clip": false
+      },
+      "pDNSMOS": {
+        "SIG": 4.531382057584712,
+        "BAK": 4.729507184570316,
+        "OVRL": 4.399203636746223,
+        "windows": 7,
+        "repeated_short_clip": false
+      }
+    },
+    {
+      "sample": "fan",
+      "engine": "dpdfnet8_48khz_hr",
+      "sha256": "5c2f776ce7047b253bd687e8ff7ec06ff85f5f33b8c07d6e167255022755beee",
+      "alignment_samples": 2400,
+      "sample_count": 1188000,
+      "DNSMOS": {
+        "SIG": 3.599117757319227,
+        "BAK": 4.195285746567464,
+        "OVRL": 3.404009404262783,
+        "windows": 7,
+        "repeated_short_clip": false
+      },
+      "pDNSMOS": {
+        "SIG": 4.563831407232463,
+        "BAK": 4.7411707094270925,
+        "OVRL": 4.443286807501295,
+        "windows": 7,
+        "repeated_short_clip": false
+      }
+    },
+    {
+      "sample": "dog",
+      "engine": "before",
+      "sha256": "5311261651572a652295861c52a168134756becc318b5da5c38e33e717dee91e",
+      "alignment_samples": 0,
+      "sample_count": 1340076,
+      "DNSMOS": {
+        "SIG": 3.556857415336832,
+        "BAK": 2.684815427589167,
+        "OVRL": 2.579462544214002,
+        "windows": 7,
+        "repeated_short_clip": false
+      },
+      "pDNSMOS": {
+        "SIG": 4.395654118648774,
+        "BAK": 2.006068677340896,
+        "OVRL": 2.621465933522464,
+        "windows": 7,
+        "repeated_short_clip": false
+      }
+    },
+    {
+      "sample": "dog",
+      "engine": "after",
+      "sha256": "d5bf36c8aeb466b614f3f50e2976b2c2be7169274cb071a3be0a6c8ad8787adb",
+      "alignment_samples": 0,
+      "sample_count": 1340076,
+      "DNSMOS": {
+        "SIG": 3.4598140974194505,
+        "BAK": 4.104520806174019,
+        "OVRL": 3.20949892458697,
+        "windows": 7,
+        "repeated_short_clip": false
+      },
+      "pDNSMOS": {
+        "SIG": 4.0385389982909405,
+        "BAK": 4.029122608730326,
+        "OVRL": 3.632391152630691,
+        "windows": 7,
+        "repeated_short_clip": false
+      }
+    },
+    {
+      "sample": "dog",
+      "engine": "egorp",
+      "sha256": "4e1ba93bc99ea89e7d3e56990afb93bb75e257b2c3dedb8e3adff71ea888de81",
+      "alignment_samples": 1920,
+      "sample_count": 1340076,
+      "DNSMOS": {
+        "SIG": 3.088031871954059,
+        "BAK": 3.955008889857507,
+        "OVRL": 2.8199843270855895,
+        "windows": 7,
+        "repeated_short_clip": false
+      },
+      "pDNSMOS": {
+        "SIG": 3.310136971750784,
+        "BAK": 3.6411871445918296,
+        "OVRL": 2.8591021293045435,
+        "windows": 7,
+        "repeated_short_clip": false
+      }
+    },
+    {
+      "sample": "dog",
+      "engine": "dpdfnet2_48khz_hr",
+      "sha256": "fa9d353d059c947355bda215c3094d4762396e5375d35c555f85b4c290ddfbe6",
+      "alignment_samples": 2400,
+      "sample_count": 1340076,
+      "DNSMOS": {
+        "SIG": 3.571861252878734,
+        "BAK": 4.174630238998265,
+        "OVRL": 3.3518361444446865,
+        "windows": 7,
+        "repeated_short_clip": false
+      },
+      "pDNSMOS": {
+        "SIG": 4.341095211741428,
+        "BAK": 4.562254836347404,
+        "OVRL": 4.131661165138537,
+        "windows": 7,
+        "repeated_short_clip": false
+      }
+    },
+    {
+      "sample": "dog",
+      "engine": "dpdfnet8_48khz_hr",
+      "sha256": "0d5d27677af4802174978be7e033dfd54e924bc151d3bf16f61158eb764dca00",
+      "alignment_samples": 2400,
+      "sample_count": 1340076,
+      "DNSMOS": {
+        "SIG": 3.558928426022558,
+        "BAK": 4.169054522275532,
+        "OVRL": 3.336196827475279,
+        "windows": 7,
+        "repeated_short_clip": false
+      },
+      "pDNSMOS": {
+        "SIG": 4.322258182497798,
+        "BAK": 4.515255160230063,
+        "OVRL": 4.084468987614004,
+        "windows": 7,
+        "repeated_short_clip": false
+      }
+    },
+    {
+      "sample": "bgvoice",
+      "engine": "before",
+      "sha256": "3c1308832ac0708c75b632153a9128efa6cd6b86fe924db2bd51fc25029139d7",
+      "alignment_samples": 0,
+      "sample_count": 1712233,
+      "DNSMOS": {
+        "SIG": 3.57652588013402,
+        "BAK": 3.4326409843460275,
+        "OVRL": 2.9757779803403577,
+        "windows": 9,
+        "repeated_short_clip": false
+      },
+      "pDNSMOS": {
+        "SIG": 4.149521997072316,
+        "BAK": 2.8387547090653493,
+        "OVRL": 3.143317926241633,
+        "windows": 9,
+        "repeated_short_clip": false
+      }
+    },
+    {
+      "sample": "bgvoice",
+      "engine": "after",
+      "sha256": "ce110674a8ed53a2477cf4415874d84df3c5d3ccafe0519de0eeca03e3814c9d",
+      "alignment_samples": 0,
+      "sample_count": 1712233,
+      "DNSMOS": {
+        "SIG": 3.5692284332053297,
+        "BAK": 4.186825168016697,
+        "OVRL": 3.3573534329885857,
+        "windows": 9,
+        "repeated_short_clip": false
+      },
+      "pDNSMOS": {
+        "SIG": 4.309372521843435,
+        "BAK": 4.521513216988352,
+        "OVRL": 4.066960950554757,
+        "windows": 9,
+        "repeated_short_clip": false
+      }
+    },
+    {
+      "sample": "bgvoice",
+      "engine": "egorp",
+      "sha256": "d7289453112f603da5ef2c43125091603f0b7e1cb41954ea1e96eaf1ecc06c38",
+      "alignment_samples": 1920,
+      "sample_count": 1712233,
+      "DNSMOS": {
+        "SIG": 3.02002387663485,
+        "BAK": 3.806864178004176,
+        "OVRL": 2.7228706192586944,
+        "windows": 9,
+        "repeated_short_clip": false
+      },
+      "pDNSMOS": {
+        "SIG": 2.8293091996282786,
+        "BAK": 3.4100675251947834,
+        "OVRL": 2.440536684564751,
+        "windows": 9,
+        "repeated_short_clip": false
+      }
+    },
+    {
+      "sample": "bgvoice",
+      "engine": "dpdfnet2_48khz_hr",
+      "sha256": "80a84adbea700de9b531737ccb38ecfc1b90f2d2852ccdca5f2e723b08c64fba",
+      "alignment_samples": 2400,
+      "sample_count": 1712233,
+      "DNSMOS": {
+        "SIG": 3.561483018161944,
+        "BAK": 4.1785819630332055,
+        "OVRL": 3.3465029400173054,
+        "windows": 9,
+        "repeated_short_clip": false
+      },
+      "pDNSMOS": {
+        "SIG": 4.217742687282344,
+        "BAK": 4.362351499916148,
+        "OVRL": 3.9161342860044,
+        "windows": 9,
+        "repeated_short_clip": false
+      }
+    },
+    {
+      "sample": "bgvoice",
+      "engine": "dpdfnet8_48khz_hr",
+      "sha256": "977e5c62834181a2fa16c017008eb158a44c2e33c60107ff739998d68cbd93cf",
+      "alignment_samples": 2400,
+      "sample_count": 1712233,
+      "DNSMOS": {
+        "SIG": 3.603913362074289,
+        "BAK": 4.18388256920755,
+        "OVRL": 3.3892348883746575,
+        "windows": 9,
+        "repeated_short_clip": false
+      },
+      "pDNSMOS": {
+        "SIG": 4.370208871039927,
+        "BAK": 4.541132894352456,
+        "OVRL": 4.133897745302566,
+        "windows": 9,
+        "repeated_short_clip": false
+      }
+    }
+  ]
+}

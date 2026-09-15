@@ -1,0 +1,23 @@
+{
+  "source": "https://github.com/microsoft/DNS-Challenge/blob/master/DNSMOS/dnsmos_local.py",
+  "scope": "P835 scores only; unrelated P808 branch stubbed",
+  "sample": "keyboard-after.wav",
+  "results": [
+    {
+      "personalized": false,
+      "absolute_difference": {
+        "SIG": 0.0,
+        "BAK": 0.0,
+        "OVRL": 0.0
+      }
+    },
+    {
+      "personalized": true,
+      "absolute_difference": {
+        "SIG": 0.0,
+        "BAK": 0.0,
+        "OVRL": 0.0
+      }
+    }
+  ]
+}

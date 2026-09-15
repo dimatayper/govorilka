@@ -1,0 +1,66 @@
+[
+  {
+    "name": "keyboard",
+    "reference_type": "Krisp website processed demo, NOT clean speech; version unknown",
+    "duration_seconds": 24.921875,
+    "reference_match_si_sdr_db": 7.6572751554154515,
+    "alignment_ms": 40.0,
+    "reference_quiet_seconds": 8.11,
+    "noisy_in_reference_quiet_dbfs": -37.56461472518612,
+    "egorp_in_reference_quiet_dbfs": -63.54030661220253,
+    "krisp_in_reference_quiet_dbfs": -62.65920378762695,
+    "hashes": {
+      "noisy": "22a4c79b6a1f5ffdc73880691dfc7fa09cf2d3c65d34a76d37957566f8cf61b6",
+      "reference": "a43ecb103744e702d2ffbba63a9691457d9d438a3bf5961a817876c448dd45b8",
+      "egorp": "6a28158e51ff21d94df99f05f6837c1a8aa9963b11a56251678ebc87ac1c913a"
+    }
+  },
+  {
+    "name": "fan",
+    "reference_type": "Krisp website processed demo, NOT clean speech; version unknown",
+    "duration_seconds": 24.75,
+    "reference_match_si_sdr_db": 16.004566069684266,
+    "alignment_ms": 40.0,
+    "reference_quiet_seconds": 7.15,
+    "noisy_in_reference_quiet_dbfs": -32.68566785544332,
+    "egorp_in_reference_quiet_dbfs": -63.054514539498726,
+    "krisp_in_reference_quiet_dbfs": -59.921242874192224,
+    "hashes": {
+      "noisy": "2bf6664fddfd057cc32fb0ed613cb4fbf54104c28c709058baf90647136e6715",
+      "reference": "68da8051002ac0bf827f2988f1d41bc4561ba9be6dfc9cf02eb900f7cf2bde6e",
+      "egorp": "c8da80eb765f6551ebec03d62b252755bb952bc00491e18ee060774a2c93d02f"
+    }
+  },
+  {
+    "name": "dog",
+    "reference_type": "Krisp website processed demo, NOT clean speech; version unknown",
+    "duration_seconds": 27.91825,
+    "reference_match_si_sdr_db": 8.121254038414465,
+    "alignment_ms": 40.0,
+    "reference_quiet_seconds": 6.24,
+    "noisy_in_reference_quiet_dbfs": -35.475816884364264,
+    "egorp_in_reference_quiet_dbfs": -57.30527620016608,
+    "krisp_in_reference_quiet_dbfs": -59.60731845287826,
+    "hashes": {
+      "noisy": "5311261651572a652295861c52a168134756becc318b5da5c38e33e717dee91e",
+      "reference": "d5bf36c8aeb466b614f3f50e2976b2c2be7169274cb071a3be0a6c8ad8787adb",
+      "egorp": "4e1ba93bc99ea89e7d3e56990afb93bb75e257b2c3dedb8e3adff71ea888de81"
+    }
+  },
+  {
+    "name": "bgvoice",
+    "reference_type": "Krisp website processed demo, NOT clean speech; version unknown",
+    "duration_seconds": 35.67152083333333,
+    "reference_match_si_sdr_db": 6.577720316967723,
+    "alignment_ms": 40.0,
+    "reference_quiet_seconds": 18.77,
+    "noisy_in_reference_quiet_dbfs": -50.04417420326152,
+    "egorp_in_reference_quiet_dbfs": -65.19978494408565,
+    "krisp_in_reference_quiet_dbfs": -63.894356654628226,
+    "hashes": {
+      "noisy": "3c1308832ac0708c75b632153a9128efa6cd6b86fe924db2bd51fc25029139d7",
+      "reference": "ce110674a8ed53a2477cf4415874d84df3c5d3ccafe0519de0eeca03e3814c9d",
+      "egorp": "d7289453112f603da5ef2c43125091603f0b7e1cb41954ea1e96eaf1ecc06c38"
+    }
+  }
+]

@@ -1,0 +1,87 @@
+[
+  {
+    "path": "artifacts/egorp/corpus/p232_013_clean.wav",
+    "sha256": "d7a51b4fdfb02657cf9410dbd34b4ea165acbec48581a8a074e1d45fdd3b3334",
+    "bytes": 378612
+  },
+  {
+    "path": "artifacts/egorp/corpus/p232_013_noisy.wav",
+    "sha256": "792e6137d41cf9b3a27c2bc962be6838de2d53d204ae402aac6962dcb7c965cc",
+    "bytes": 378612
+  },
+  {
+    "path": "artifacts/egorp/corpus/p232_019_clean.wav",
+    "sha256": "2268caefff20ce9658a154c1481cc37ebf89347b3ef848b8a07115be3ec9c069",
+    "bytes": 646658
+  },
+  {
+    "path": "artifacts/egorp/corpus/p232_019_noisy.wav",
+    "sha256": "a48d16b180983c0a4c3bcb439753921dece9ee50bd31b166bc21d769c02fddb7",
+    "bytes": 646658
+  },
+  {
+    "path": "artifacts/egorp/corpus/p232_028_clean.wav",
+    "sha256": "d65b68879a3f2a31ea58397e52be67d972cfdf1ba4a1f005fb01caea616f363c",
+    "bytes": 198280
+  },
+  {
+    "path": "artifacts/egorp/corpus/p232_028_noisy.wav",
+    "sha256": "571f2f1963f9249db5381f640b92b5e5727bfde3bb4fd9e11703816282e498ac",
+    "bytes": 198280
+  },
+  {
+    "path": "artifacts/egorp/corpus/p257_003_clean.wav",
+    "sha256": "394acaaf0d1bf55678ed10e4ce5f09cc691dcd4e0e99d0d66809637dbb37e197",
+    "bytes": 530100
+  },
+  {
+    "path": "artifacts/egorp/corpus/p257_003_noisy.wav",
+    "sha256": "715d32978b82857886e2fa1f95b56d64e8436410b135e79313a65506b1c12cc1",
+    "bytes": 530100
+  },
+  {
+    "path": "artifacts/egorp/corpus/p257_049_clean.wav",
+    "sha256": "94fe84df045724184b764431fe8ea06d280f17167c5d3bff6fe6ffe328e06d34",
+    "bytes": 302338
+  },
+  {
+    "path": "artifacts/egorp/corpus/p257_049_noisy.wav",
+    "sha256": "cebd97a8f974b46bd936109139ea54eadd93e1eb42b89c44e6c91eea5a0a7fde",
+    "bytes": 302338
+  },
+  {
+    "path": "artifacts/egorp/corpus/p257_212_clean.wav",
+    "sha256": "4f27631e97b2ad8bae3b8578f3b84b80d70874054b2112ddcc9cdac29ddac4ae",
+    "bytes": 247556
+  },
+  {
+    "path": "artifacts/egorp/corpus/p257_212_noisy.wav",
+    "sha256": "e34ffa87666d30cfa94746d9d67c509b1a5323f835401972c51a1dcfc0731e30",
+    "bytes": 247556
+  },
+  {
+    "path": "artifacts/egorp/candidates/dnsmos_sig_bak_ovr.onnx",
+    "sha256": "269fbebdb513aa23cddfbb593542ecc540284a91849ac50516870e1ac78f6edd",
+    "bytes": 1157965
+  },
+  {
+    "path": "artifacts/egorp/candidates/dpdfnet2-js.wav",
+    "sha256": "f4e739c5f17e61cbe1497cfe2a03926a49f616eb57a86d4f0e2784d7aef828ed",
+    "bytes": 950444
+  },
+  {
+    "path": "artifacts/egorp/candidates/dpdfnet2_48khz_hr.onnx",
+    "sha256": "7f0575a5cec0ba4ffd8f8bd657e06d007e4ccdd955d76faab922b9d3291dc14b",
+    "bytes": 10493337
+  },
+  {
+    "path": "artifacts/egorp/candidates/dpdfnet8_48khz_hr.onnx",
+    "sha256": "7b3afbb260a08fe9af3d16e3bda992971be1e7e951d1dee7c2d235f5c43f5631",
+    "bytes": 14857107
+  },
+  {
+    "path": "artifacts/egorp/candidates/pdnsmos_sig_bak_ovr.onnx",
+    "sha256": "9e3a197449ca2177f0997afec3bd6b890117ce2f17b89d6eea7fa0d47272c81c",
+    "bytes": 1157962
+  }
+]

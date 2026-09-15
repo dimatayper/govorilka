@@ -5,8 +5,8 @@ import type {I18n, MessageDescriptor} from '@lingui/core';
 import {msg} from '@lingui/core/macro';
 
 const NOISE_SUPPRESSION_ENHANCED_DESCRIPTION_DESCRIPTOR = msg({
-	message: 'Neural filter that removes most background noise.',
-	comment: 'Description for the enhanced (DeepFilterNet3) noise suppression option.',
+	message: 'Local AI noise suppression that preserves full-band speech.',
+	comment: 'Description for the enhanced (Egorp) noise suppression option.',
 });
 const NOISE_SUPPRESSION_STANDARD_DESCRIPTION_DESCRIPTOR = msg({
 	message: 'Built-in suppression from your browser or system.',
@@ -39,7 +39,7 @@ const NOISE_SUPPRESSION_RNNOISE_DESCRIPTION_DESCRIPTOR = msg({
 	comment: 'Description for the RNNoise noise suppression option.',
 });
 const NOISE_SUPPRESSION_GTCRN_DESCRIPTION_DESCRIPTOR = msg({
-	message: 'Strongest neural filter for speech, limits audio to the speech range.',
+	message: 'Neural filter for speech, limits audio to the speech range.',
 	comment: 'Description for the GTCRN noise suppression option.',
 });
 const STEREO_MICROPHONE_DESCRIPTOR = msg({
@@ -56,7 +56,7 @@ const BACKEND_MODEL_NAMES: Readonly<Partial<Record<VoiceNoiseSuppressionBackend,
 	speex: 'Speex',
 	rnnoise: 'RNNoise',
 	gtcrn: 'GTCRN',
-	deep_filter: 'DeepFilterNet',
+	deep_filter: 'Egorp',
 };
 
 const TRANSLATED_LABELS: Readonly<Partial<Record<VoiceNoiseSuppressionBackend, MessageDescriptor>>> = {

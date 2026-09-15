@@ -74,6 +74,7 @@ export const useMicTest = (settings: MicTestSettings) => {
 	const timeDomainDataRef = useRef<Float32Array<ArrayBuffer> | null>(null);
 	const peakLevelRef = useRef(0);
 	const isStartingRef = useRef(false);
+	const pendingStartRef = useRef<AbortController | null>(null);
 	const restartPendingRef = useRef(false);
 	const activeCaptureSignatureRef = useRef<string | null>(null);
 	const micExplicitlyDenied = MediaPermission.microphoneExplicitlyDenied;
@@ -128,6 +129,9 @@ export const useMicTest = (settings: MicTestSettings) => {
 		animationFrameRef.current = requestAnimationFrame(updateLevel);
 	}, []);
 	const stop = useCallback(() => {
+		pendingStartRef.current?.abort();
+		pendingStartRef.current = null;
+		restartPendingRef.current = false;
 		if (animationFrameRef.current) {
 			cancelAnimationFrame(animationFrameRef.current);
 			animationFrameRef.current = null;
@@ -174,9 +178,13 @@ export const useMicTest = (settings: MicTestSettings) => {
 		}
 		isStartingRef.current = true;
 		setIsStarting(true);
+		stop();
+		const controller = new AbortController();
+		pendingStartRef.current = controller;
+		const {signal} = controller;
 		try {
-			stop();
 			const nativeResult = await ensureMacPermission('microphone', {behavior: 'interactive'});
+			signal.throwIfAborted();
 			switch (nativeResult) {
 				case 'granted':
 				case 'unsupported-platform':
@@ -212,10 +220,15 @@ export const useMicTest = (settings: MicTestSettings) => {
 			try {
 				stream = await navigator.mediaDevices.getUserMedia({audio: buildAudioConstraints(true)});
 			} catch (error) {
+				signal.throwIfAborted();
 				if (!useExactDeviceId || !(error instanceof Error) || error.name !== 'OverconstrainedError') {
 					throw error;
 				}
 				stream = await navigator.mediaDevices.getUserMedia({audio: buildAudioConstraints(false)});
+			}
+			if (signal.aborted) {
+				stream.getTracks().forEach((track) => track.stop());
+				signal.throwIfAborted();
 			}
 			micStreamRef.current = stream;
 			const sourceTrack = stream.getAudioTracks()[0];
@@ -228,11 +241,13 @@ export const useMicTest = (settings: MicTestSettings) => {
 			if (audioContext.state === 'suspended') {
 				await audioContext.resume();
 			}
+			signal.throwIfAborted();
 			const outputSinkId = normalizeOutputDeviceId(settings.outputDeviceId);
 			const playbackDestination = audioContext.createMediaStreamDestination();
 			playbackDestinationRef.current = playbackDestination;
 			let playbackTarget: AudioNode = playbackDestination;
-			graphRef.current = await createMicTestAudioGraph({
+			const graph = await createMicTestAudioGraph({
+				signal,
 				audioContext,
 				sourceTrack,
 				inputGain: inputVoiceVolumePercentToGain(settings.inputVolume),
@@ -243,8 +258,18 @@ export const useMicTest = (settings: MicTestSettings) => {
 				deepFilterNoiseReductionLevel: profile.deepFilterNoiseReductionLevel,
 				workletBackend,
 				suppressionStrength: effectiveNoiseSuppression.suppressionStrength,
+				onRuntimeFailure: (error) => {
+					if (signal.aborted) return;
+					logger.warn('Microphone test noise suppression failed', error);
+					stop();
+				},
 			});
-			timeDomainDataRef.current = new Float32Array(graphRef.current.analyser.fftSize);
+			if (signal.aborted) {
+				await graph.dispose();
+				signal.throwIfAborted();
+			}
+			graphRef.current = graph;
+			timeDomainDataRef.current = new Float32Array(graph.analyser.fftSize);
 			const audioElement = new Audio();
 			audioElementRef.current = audioElement;
 			audioElement.autoplay = true;
@@ -258,9 +283,11 @@ export const useMicTest = (settings: MicTestSettings) => {
 					logger.warn('Failed to set mic test media element output device', error);
 				}
 			}
+			signal.throwIfAborted();
 			try {
 				await audioElement.play();
 			} catch (error) {
+				signal.throwIfAborted();
 				logger.warn('Failed to start mic test media element playback; falling back to AudioContext destination', error);
 				audioElement.pause();
 				audioElement.srcObject = null;
@@ -281,13 +308,15 @@ export const useMicTest = (settings: MicTestSettings) => {
 				graphRef.current.softClipOutput.connect(playbackTarget);
 				graphRef.current.playbackTarget = playbackTarget;
 			}
+			signal.throwIfAborted();
 			setIsTesting(true);
 			activeCaptureSignatureRef.current = captureSignature;
 			updateLevel();
 			if (profile.deepFilter) {
-				logger.info('Applied DeepFilterNet3 noise suppression for mic test');
+				logger.info('Applied Egorp noise suppression for mic test');
 			}
 		} catch (error) {
+			if (signal.aborted) return;
 			logger.error('Error starting mic test', error);
 			if (error instanceof Error && (error.name === 'NotAllowedError' || error.name === 'PermissionDeniedError')) {
 				MediaPermission.markMicrophoneExplicitlyDenied();
@@ -295,6 +324,7 @@ export const useMicTest = (settings: MicTestSettings) => {
 			}
 			stop();
 		} finally {
+			if (pendingStartRef.current === controller) pendingStartRef.current = null;
 			isStartingRef.current = false;
 			setIsStarting(false);
 			if (restartPendingRef.current) {

@@ -140,15 +140,29 @@ class VoiceInputTrackProcessor implements TrackProcessor<Track.Kind.Audio> {
 				const chain = await buildDeepFilterAudioChain({
 					audioContext: opts.audioContext,
 					noiseReductionLevel: this.deepFilterNoiseReductionLevel,
+					signal: controller.signal,
+					onRuntimeFailure: (error) => {
+						if (generation !== this.buildGeneration || !ownsVoiceInputProcessor(this)) return;
+						logger.warn('Egorp failed while running', error);
+						markNoiseSuppressionBackendFailed('deep_filter');
+						void restartVoiceInputProcessorAfterWorkletFailure(this);
+					},
+				}).catch((error) => {
+					if (generation !== this.buildGeneration || controller.signal.aborted) throw error;
+					logger.warn('Egorp initialization failed; continuing without suppression', error);
+					markNoiseSuppressionBackendFailed('deep_filter');
+					return null;
 				});
 				if (generation !== this.buildGeneration) {
-					await chain.dispose();
+					await chain?.dispose();
 					throw new DOMException('Voice input build cancelled', 'AbortError');
 				}
-				this.deepFilterChain = chain;
-				chainTail.connect(chain.inputDestination);
-				this.processedTrack = chain.processedTrack;
-				return;
+				if (chain) {
+					this.deepFilterChain = chain;
+					chainTail.connect(chain.inputDestination);
+					this.processedTrack = chain.processedTrack;
+					return;
+				}
 			}
 			this.passthroughDestination = opts.audioContext.createMediaStreamDestination();
 			chainTail.connect(this.passthroughDestination);
@@ -311,13 +325,13 @@ let activeProcessor: VoiceInputTrackProcessor | null = null;
 let pendingProcessor: VoiceInputProcessorBinding | null = null;
 let desiredTrack: LocalAudioTrack | null = null;
 let synchronizationGeneration = 0;
-const failedWorkletBackends = new Set<NoiseSuppressionWorkletBackend>();
+const failedWorkletBackends = new Set<NoiseSuppressionWorkletBackend | 'deep_filter'>();
 
 function ownsVoiceInputProcessor(processor: VoiceInputTrackProcessor): boolean {
 	return processor === activeProcessor || processor === pendingProcessor?.processor;
 }
 
-function markNoiseSuppressionBackendFailed(backend: NoiseSuppressionWorkletBackend): void {
+function markNoiseSuppressionBackendFailed(backend: NoiseSuppressionWorkletBackend | 'deep_filter'): void {
 	failedWorkletBackends.add(backend);
 }
 
@@ -346,10 +360,14 @@ async function restartVoiceInputProcessorAfterWorkletFailure(processor: VoiceInp
 function resolveActiveVoiceProcessing(sampleRate?: number): ResolvedVoiceProcessing {
 	const label = getActiveInputDeviceLabel(VoiceSettings);
 	const profile = resolveVoiceProcessingFromStateForDeviceLabel(VoiceSettings, label);
-	return applyNoiseSuppressionOverride(
+	const effective = applyNoiseSuppressionOverride(
 		profile,
 		readEffectiveNoiseSuppression(sampleRate ?? DEFAULT_NOISE_SUPPRESSION_PROBE_SAMPLE_RATE),
 	);
+	if (effective.deepFilter && failedWorkletBackends.has('deep_filter')) {
+		return {...effective, deepFilter: false, deepFilterNoiseReductionLevel: 0, noiseSuppressionBackend: 'none'};
+	}
+	return effective;
 }
 
 function resolveWorkletBackend(profile: ResolvedVoiceProcessing): NoiseSuppressionWorkletBackend | null {

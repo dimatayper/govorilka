@@ -295,6 +295,7 @@ export const voiceVideoSections = [
 			NOISE_DESCRIPTOR,
 			SUPPRESSION_DESCRIPTOR,
 			VOICE_NOISE_SUPPRESSION_DESCRIPTOR,
+			'Egorp',
 			'DeepFilter',
 			'DeepFilterNet',
 			ECHO_DESCRIPTOR,

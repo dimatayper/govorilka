@@ -19,7 +19,7 @@ export const AUDIO_PROCESSING_FOCUSED_VOICE_DESCRIPTOR = msg({
 export const AUDIO_PROCESSING_CUSTOM_ENHANCED_DESCRIPTOR = msg({
 	message: 'Audio processing (custom, enhanced)',
 	comment:
-		'Tooltip in the voice status popout. Describes the custom mic processing profile with enhanced (DeepFilterNet3) noise suppression.',
+		'Tooltip in the voice status popout. Describes the custom mic processing profile with enhanced (Egorp) noise suppression.',
 });
 export const AUDIO_PROCESSING_CUSTOM_DESCRIPTOR = msg({
 	message: 'Audio processing (custom)',

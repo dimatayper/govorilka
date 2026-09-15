@@ -1,0 +1,200 @@
+[
+  {
+    "url": "https://huggingface.co/datasets/Ceva-IP/DPDFNet_EvalSet/resolve/main/Noisy/russian_airport_snr0_rt60none_0_mixture_noisy.wav",
+    "path": "artifacts/egorp/russian-eval/raw/russian_airport_snr0_rt60none_0_mixture_noisy.wav",
+    "expected_bytes": 4298858,
+    "sha256": "ef0d505fe59ea33b33a19ffd75259a0387252f64ed20fd2ce1463f4bf9d69670",
+    "original_sample_rate": 16000,
+    "original_samples": 2149407,
+    "evaluation_path": "artifacts/egorp/russian-eval/corpus/russian_airport_snr0_rt60none_0_mixture_noisy.wav",
+    "evaluation_sha256": "44c9d6217106db70a39d3774fa2c9054b512ca62f5d9215b3678e0bbeeb22d2b",
+    "resampling": "scipy.signal.resample_poly to 48 kHz, no normalization"
+  },
+  {
+    "url": "https://huggingface.co/datasets/Ceva-IP/DPDFNet_EvalSet/resolve/main/Noisy/russian_car_snr0_rt60none_0_mixture_noisy.wav",
+    "path": "artifacts/egorp/russian-eval/raw/russian_car_snr0_rt60none_0_mixture_noisy.wav",
+    "expected_bytes": 4066998,
+    "sha256": "9d8b89ce5be006a0552bcdb79b0c156e23a4a33b0930d1d17860a29812c30167",
+    "original_sample_rate": 16000,
+    "original_samples": 2033477,
+    "evaluation_path": "artifacts/egorp/russian-eval/corpus/russian_car_snr0_rt60none_0_mixture_noisy.wav",
+    "evaluation_sha256": "b11345be724286c1f69ee5094c5c27dc1bc74e9d0482dcaed69ee3f6ccc883bf",
+    "resampling": "scipy.signal.resample_poly to 48 kHz, no normalization"
+  },
+  {
+    "url": "https://huggingface.co/datasets/Ceva-IP/DPDFNet_EvalSet/resolve/main/Noisy/russian_office_snr0_rt60none_0_mixture_noisy.wav",
+    "path": "artifacts/egorp/russian-eval/raw/russian_office_snr0_rt60none_0_mixture_noisy.wav",
+    "expected_bytes": 4053660,
+    "sha256": "199c97271b288dbc693681327e47906dbafb80833476661643860a9fe7c70543",
+    "original_sample_rate": 16000,
+    "original_samples": 2026808,
+    "evaluation_path": "artifacts/egorp/russian-eval/corpus/russian_office_snr0_rt60none_0_mixture_noisy.wav",
+    "evaluation_sha256": "0745a1bd06a6335e668c41d13bc14c0a800f62b03d826425344749ee30904b05",
+    "resampling": "scipy.signal.resample_poly to 48 kHz, no normalization"
+  },
+  {
+    "url": "https://huggingface.co/datasets/Ceva-IP/DPDFNet_EvalSet/resolve/main/Noisy/russian_pub_snr0_rt60none_0_mixture_noisy.wav",
+    "path": "artifacts/egorp/russian-eval/raw/russian_pub_snr0_rt60none_0_mixture_noisy.wav",
+    "expected_bytes": 3772444,
+    "sha256": "9d2cd9f1ae008c8097638dd9592cf0c7ef51e1e64509f50d4711ab907cf5a9d3",
+    "original_sample_rate": 16000,
+    "original_samples": 1886200,
+    "evaluation_path": "artifacts/egorp/russian-eval/corpus/russian_pub_snr0_rt60none_0_mixture_noisy.wav",
+    "evaluation_sha256": "3b7411e1b1dc086d99b0a094551f93822499aa535ad5417245882129c4580be4",
+    "resampling": "scipy.signal.resample_poly to 48 kHz, no normalization"
+  },
+  {
+    "url": "https://huggingface.co/datasets/Ceva-IP/DPDFNet_EvalSet/resolve/main/Noisy/russian_rain_snr0_rt60none_0_mixture_noisy.wav",
+    "path": "artifacts/egorp/russian-eval/raw/russian_rain_snr0_rt60none_0_mixture_noisy.wav",
+    "expected_bytes": 4314628,
+    "sha256": "7efb761cc90a5330a6901df20a6477224cd57957edcff29156742e9c9866d408",
+    "original_sample_rate": 16000,
+    "original_samples": 2157292,
+    "evaluation_path": "artifacts/egorp/russian-eval/corpus/russian_rain_snr0_rt60none_0_mixture_noisy.wav",
+    "evaluation_sha256": "81fe5e296c5e7d18c39ee8f8869c750aac48bfc906664c534cfc6555bde30fd7",
+    "resampling": "scipy.signal.resample_poly to 48 kHz, no normalization"
+  },
+  {
+    "url": "https://huggingface.co/datasets/Ceva-IP/DPDFNet_EvalSet/resolve/main/Noisy/russian_restaurant_snr0_rt60none_0_mixture_noisy.wav",
+    "path": "artifacts/egorp/russian-eval/raw/russian_restaurant_snr0_rt60none_0_mixture_noisy.wav",
+    "expected_bytes": 3935180,
+    "sha256": "537521d4a6b55887853bf18ea0e128bf1d764a487108d95b88ff76187d3920f7",
+    "original_sample_rate": 16000,
+    "original_samples": 1967568,
+    "evaluation_path": "artifacts/egorp/russian-eval/corpus/russian_restaurant_snr0_rt60none_0_mixture_noisy.wav",
+    "evaluation_sha256": "67b5f5bd1e17582d4702710af9b0fd0fa4838f23cbe0aadc0c9d7539698e8e47",
+    "resampling": "scipy.signal.resample_poly to 48 kHz, no normalization"
+  },
+  {
+    "url": "https://huggingface.co/datasets/Ceva-IP/DPDFNet_EvalSet/resolve/main/Noisy/russian_street_snr0_rt60none_0_mixture_noisy.wav",
+    "path": "artifacts/egorp/russian-eval/raw/russian_street_snr0_rt60none_0_mixture_noisy.wav",
+    "expected_bytes": 3862004,
+    "sha256": "6a8b4217d0fcdb006f29ba643777a2e588979ad174953a0e26658511e64b4a64",
+    "original_sample_rate": 16000,
+    "original_samples": 1930980,
+    "evaluation_path": "artifacts/egorp/russian-eval/corpus/russian_street_snr0_rt60none_0_mixture_noisy.wav",
+    "evaluation_sha256": "420b9c56076e117e20328f60c639cd3eb69873e35d08ecd8033598b692e131a1",
+    "resampling": "scipy.signal.resample_poly to 48 kHz, no normalization"
+  },
+  {
+    "url": "https://huggingface.co/datasets/Ceva-IP/DPDFNet_EvalSet/resolve/main/Noisy/russian_subway_snr0_rt60none_0_mixture_noisy.wav",
+    "path": "artifacts/egorp/russian-eval/raw/russian_subway_snr0_rt60none_0_mixture_noisy.wav",
+    "expected_bytes": 3824518,
+    "sha256": "f9d8f2fe1dfcd731ce35b3a7e4b728afcb5cf93aeba0730fc069a288b2de9842",
+    "original_sample_rate": 16000,
+    "original_samples": 1912237,
+    "evaluation_path": "artifacts/egorp/russian-eval/corpus/russian_subway_snr0_rt60none_0_mixture_noisy.wav",
+    "evaluation_sha256": "503337e582ef94c88ac5b857866f3038dc5caf2b00abd101255386e96c509cad",
+    "resampling": "scipy.signal.resample_poly to 48 kHz, no normalization"
+  },
+  {
+    "url": "https://huggingface.co/datasets/Ceva-IP/DPDFNet_EvalSet/resolve/main/Noisy/russian_train_snr0_rt60none_0_mixture_noisy.wav",
+    "path": "artifacts/egorp/russian-eval/raw/russian_train_snr0_rt60none_0_mixture_noisy.wav",
+    "expected_bytes": 3807366,
+    "sha256": "f35fc6504408780c373a21d4d01f4d4438e061a913e9e4a2018ff9b5e9db6625",
+    "original_sample_rate": 16000,
+    "original_samples": 1903661,
+    "evaluation_path": "artifacts/egorp/russian-eval/corpus/russian_train_snr0_rt60none_0_mixture_noisy.wav",
+    "evaluation_sha256": "ecc6dbaca5c1c5aacb392c8b219ad577e2a029a2af0934d35ed29428ffe4ebd4",
+    "resampling": "scipy.signal.resample_poly to 48 kHz, no normalization"
+  },
+  {
+    "url": "https://huggingface.co/datasets/Ceva-IP/DPDFNet_EvalSet/resolve/main/Clean/russian_airport_snr0_rt60none_0_mixture_clean.wav",
+    "path": "artifacts/egorp/russian-eval/raw/russian_airport_snr0_rt60none_0_mixture_clean.wav",
+    "expected_bytes": 4298858,
+    "sha256": "7b4fefc155d9553b3a100b5e73ee420731357dff9cb0a221265cd4347ff54271",
+    "original_sample_rate": 16000,
+    "original_samples": 2149407,
+    "evaluation_path": "artifacts/egorp/russian-eval/corpus/russian_airport_snr0_rt60none_0_mixture_clean.wav",
+    "evaluation_sha256": "e70278ba7af6e1d1b6c9f1eb60d02cdb8e635930c4061da34f7fe60dde4e542a",
+    "resampling": "scipy.signal.resample_poly to 48 kHz, no normalization"
+  },
+  {
+    "url": "https://huggingface.co/datasets/Ceva-IP/DPDFNet_EvalSet/resolve/main/Clean/russian_car_snr0_rt60none_0_mixture_clean.wav",
+    "path": "artifacts/egorp/russian-eval/raw/russian_car_snr0_rt60none_0_mixture_clean.wav",
+    "expected_bytes": 4066998,
+    "sha256": "f93ee7bc1202c38bf0014402cee2e04bd1aac2582bd997b2d66e5399564bfd64",
+    "original_sample_rate": 16000,
+    "original_samples": 2033477,
+    "evaluation_path": "artifacts/egorp/russian-eval/corpus/russian_car_snr0_rt60none_0_mixture_clean.wav",
+    "evaluation_sha256": "a86e45e8635605b19efd175c695a5b8fe82ac6e5bdabbcf851228d45e05c444e",
+    "resampling": "scipy.signal.resample_poly to 48 kHz, no normalization"
+  },
+  {
+    "url": "https://huggingface.co/datasets/Ceva-IP/DPDFNet_EvalSet/resolve/main/Clean/russian_office_snr0_rt60none_0_mixture_clean.wav",
+    "path": "artifacts/egorp/russian-eval/raw/russian_office_snr0_rt60none_0_mixture_clean.wav",
+    "expected_bytes": 4053660,
+    "sha256": "d99d9c8dd04921263823c0a03b0f9fae1311e4559943d88986bf7e417ba0ce65",
+    "original_sample_rate": 16000,
+    "original_samples": 2026808,
+    "evaluation_path": "artifacts/egorp/russian-eval/corpus/russian_office_snr0_rt60none_0_mixture_clean.wav",
+    "evaluation_sha256": "64b245a4ce1ce09dc9bb2e6e78caa6796cbbf8afec8c2ae171d9fc2ea6610f26",
+    "resampling": "scipy.signal.resample_poly to 48 kHz, no normalization"
+  },
+  {
+    "url": "https://huggingface.co/datasets/Ceva-IP/DPDFNet_EvalSet/resolve/main/Clean/russian_pub_snr0_rt60none_0_mixture_clean.wav",
+    "path": "artifacts/egorp/russian-eval/raw/russian_pub_snr0_rt60none_0_mixture_clean.wav",
+    "expected_bytes": 3772444,
+    "sha256": "fba58016064d3b9b3fa6a45fe0ee3b529ac17852d67e2bbff86c75392687fd67",
+    "original_sample_rate": 16000,
+    "original_samples": 1886200,
+    "evaluation_path": "artifacts/egorp/russian-eval/corpus/russian_pub_snr0_rt60none_0_mixture_clean.wav",
+    "evaluation_sha256": "c4ba83f3b77e52f460c121254a600b1bdacc084b005bc55978776f9dce125cb9",
+    "resampling": "scipy.signal.resample_poly to 48 kHz, no normalization"
+  },
+  {
+    "url": "https://huggingface.co/datasets/Ceva-IP/DPDFNet_EvalSet/resolve/main/Clean/russian_rain_snr0_rt60none_0_mixture_clean.wav",
+    "path": "artifacts/egorp/russian-eval/raw/russian_rain_snr0_rt60none_0_mixture_clean.wav",
+    "expected_bytes": 4314628,
+    "sha256": "2a099a90ce135accd732a11c59c77913e4bcf6e1684278407ee88a0470d44d5f",
+    "original_sample_rate": 16000,
+    "original_samples": 2157292,
+    "evaluation_path": "artifacts/egorp/russian-eval/corpus/russian_rain_snr0_rt60none_0_mixture_clean.wav",
+    "evaluation_sha256": "20d5c91c2f14654d18286b3ecf71d795b3f3020cee5973193bf5d273db2231d0",
+    "resampling": "scipy.signal.resample_poly to 48 kHz, no normalization"
+  },
+  {
+    "url": "https://huggingface.co/datasets/Ceva-IP/DPDFNet_EvalSet/resolve/main/Clean/russian_restaurant_snr0_rt60none_0_mixture_clean.wav",
+    "path": "artifacts/egorp/russian-eval/raw/russian_restaurant_snr0_rt60none_0_mixture_clean.wav",
+    "expected_bytes": 3935180,
+    "sha256": "945dd749fed92da0ca94742a4f58bcaf07f5b9a75acaede2a32680b07844a760",
+    "original_sample_rate": 16000,
+    "original_samples": 1967568,
+    "evaluation_path": "artifacts/egorp/russian-eval/corpus/russian_restaurant_snr0_rt60none_0_mixture_clean.wav",
+    "evaluation_sha256": "4f38e4351d3b7598825b047ee8cff060fc6e8d999463c810d3f4650fefc0dd5c",
+    "resampling": "scipy.signal.resample_poly to 48 kHz, no normalization"
+  },
+  {
+    "url": "https://huggingface.co/datasets/Ceva-IP/DPDFNet_EvalSet/resolve/main/Clean/russian_street_snr0_rt60none_0_mixture_clean.wav",
+    "path": "artifacts/egorp/russian-eval/raw/russian_street_snr0_rt60none_0_mixture_clean.wav",
+    "expected_bytes": 3862004,
+    "sha256": "5cbc815f2a935e82d1291a7e69cce5c87686eecea97ff58f65891bb8d158d1b6",
+    "original_sample_rate": 16000,
+    "original_samples": 1930980,
+    "evaluation_path": "artifacts/egorp/russian-eval/corpus/russian_street_snr0_rt60none_0_mixture_clean.wav",
+    "evaluation_sha256": "803dec1a4470e35b9eb297dccdc8133f704c943e889c687fad20b958836f7256",
+    "resampling": "scipy.signal.resample_poly to 48 kHz, no normalization"
+  },
+  {
+    "url": "https://huggingface.co/datasets/Ceva-IP/DPDFNet_EvalSet/resolve/main/Clean/russian_subway_snr0_rt60none_0_mixture_clean.wav",
+    "path": "artifacts/egorp/russian-eval/raw/russian_subway_snr0_rt60none_0_mixture_clean.wav",
+    "expected_bytes": 3824518,
+    "sha256": "ce4ff3abcde787cb939e27acec8ae9232fed7a9b69b8f6ed8963a660c15a63c2",
+    "original_sample_rate": 16000,
+    "original_samples": 1912237,
+    "evaluation_path": "artifacts/egorp/russian-eval/corpus/russian_subway_snr0_rt60none_0_mixture_clean.wav",
+    "evaluation_sha256": "4a37dd465bca28fbe721a841b04822b47255239fd9a4de6affe922c1c33315eb",
+    "resampling": "scipy.signal.resample_poly to 48 kHz, no normalization"
+  },
+  {
+    "url": "https://huggingface.co/datasets/Ceva-IP/DPDFNet_EvalSet/resolve/main/Clean/russian_train_snr0_rt60none_0_mixture_clean.wav",
+    "path": "artifacts/egorp/russian-eval/raw/russian_train_snr0_rt60none_0_mixture_clean.wav",
+    "expected_bytes": 3807366,
+    "sha256": "b473f5fffa69a256dbe88a4aa4c82b0ee169fa1b6dedfbe8f5d62af3cd864fd2",
+    "original_sample_rate": 16000,
+    "original_samples": 1903661,
+    "evaluation_path": "artifacts/egorp/russian-eval/corpus/russian_train_snr0_rt60none_0_mixture_clean.wav",
+    "evaluation_sha256": "b9dcfa857c2e1a99be33147ccda7d3781ef73634697864bcd15b26dce791aba4",
+    "resampling": "scipy.signal.resample_poly to 48 kHz, no normalization"
+  }
+]

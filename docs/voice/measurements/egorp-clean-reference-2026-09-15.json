@@ -1,0 +1,46 @@
+{
+  "scope": "Full-recording intrusive diagnostics; no Krisp parity claim; no perceptual score",
+  "clean_sha256": "d7a51b4fdfb02657cf9410dbd34b4ea165acbec48581a8a074e1d45fdd3b3334",
+  "noisy_sha256": "792e6137d41cf9b3a27c2bc962be6838de2d53d204ae402aac6962dcb7c965cc",
+  "baseline": {
+    "delay_samples": 0,
+    "delay_ms": 0.0,
+    "alignment_at_search_boundary": false,
+    "si_sdr_db": 6.7236434451929945,
+    "unscaled_sdr_db": 6.718138543689567,
+    "speech_projection_gain_db": 0.0054967271545021245,
+    "peak": 0.603363037109375,
+    "samples_above_full_scale": 0,
+    "compared_samples": 189284
+  },
+  "outputs": [
+    {
+      "path": "artifacts/egorp/egorp.wav",
+      "sha256": "5ede7aa096d00bb47f65691f00935cf365c56a1dd40eef4f9d9334cd81e6587c",
+      "delay_samples": 1920,
+      "delay_ms": 40.0,
+      "alignment_at_search_boundary": false,
+      "si_sdr_db": 15.776446575598786,
+      "unscaled_sdr_db": 15.641002184809636,
+      "speech_projection_gain_db": -0.5766630821649068,
+      "peak": 0.4915488362312317,
+      "samples_above_full_scale": 0,
+      "compared_samples": 189284,
+      "si_sdr_improvement_db": 9.052803130405792
+    },
+    {
+      "path": "artifacts/egorp/upstream.wav",
+      "sha256": "6035abaefacce3b007a99446a79a51e38f8f5b19ef84f82d2bb1d4eae44fb65f",
+      "delay_samples": 1952,
+      "delay_ms": 40.666666666666664,
+      "alignment_at_search_boundary": false,
+      "si_sdr_db": 15.776446575598786,
+      "unscaled_sdr_db": 15.641002184809636,
+      "speech_projection_gain_db": -0.5766630821649068,
+      "peak": 0.4915488362312317,
+      "samples_above_full_scale": 0,
+      "compared_samples": 189284,
+      "si_sdr_improvement_db": 9.052803130405792
+    }
+  ]
+}

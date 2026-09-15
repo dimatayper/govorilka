@@ -6,7 +6,7 @@ import {removeVoiceInputProcessor, syncVoiceInputProcessor} from '@app/features/
 import type {LocalAudioTrack, Track, TrackProcessor} from 'livekit-client';
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 
-const settings = vi.hoisted(() => ({configVersion: 0, inputVolume: 150, warn: vi.fn()}));
+const settings = vi.hoisted(() => ({configVersion: 0, backend: 'gate', inputVolume: 150, warn: vi.fn()}));
 
 vi.mock('@app/features/platform/utils/AppLogger', () => ({
 	Logger: class {
@@ -34,8 +34,8 @@ vi.mock('@app/features/voice/utils/VoiceProcessingProfile', () => ({
 vi.mock('@app/features/voice/utils/noise_suppression/NoiseSuppressionRuntime', () => ({
 	readEffectiveNoiseSuppression: () => ({
 		rolloutApplied: true,
-		backend: 'gate',
-		requestedBackend: 'gate',
+		backend: settings.backend,
+		requestedBackend: settings.backend,
 		source: 'global',
 		suppressionStrength: 80,
 		stereoEnabled: false,
@@ -46,8 +46,8 @@ vi.mock('@app/features/voice/engine/v2/VoiceEngineV2AppMicrophoneTransaction', (
 	computeSpeakingDetectorRms: () => 0,
 }));
 vi.mock('@app/features/voice/utils/DeepFilterNoiseProcessor', () => ({
-	buildDeepFilterAudioChain: () => {
-		throw new Error('DeepFilter is outside this worklet lifecycle test');
+	buildDeepFilterAudioChain: async () => {
+		throw new Error('Egorp model asset unavailable');
 	},
 }));
 vi.mock('@app/features/voice/utils/noise_suppression/NoiseSuppressionWorkletAssets', () => ({
@@ -222,6 +222,7 @@ function captureContext(): AudioContext {
 beforeEach(() => {
 	vi.useFakeTimers();
 	settings.configVersion++;
+	settings.backend = 'gate';
 	settings.warn.mockClear();
 	contexts.length = 0;
 	worklets.length = 0;
@@ -397,6 +398,17 @@ describe('worklet startup ownership', () => {
 });
 
 describe('voice input processor lifecycle', () => {
+	it('keeps microphone audio available when Egorp cannot load', async () => {
+		settings.backend = 'deep_filter';
+		const track = new FakeLocalTrack();
+		await syncVoiceInputProcessor(track.asLocalAudioTrack());
+		expect(track.processor?.processedTrack?.readyState).toBe('live');
+		expect(track.rawTrack.readyState).toBe('live');
+		expect(settings.warn).toHaveBeenCalledWith(
+			'Egorp initialization failed; continuing without suppression',
+			expect.any(Error),
+		);
+	});
 	it('cancels an installing processor before the track has published it', async () => {
 		const loading = deferred<void>();
 		moduleResult = loading.promise;

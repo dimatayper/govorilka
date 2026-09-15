@@ -1,0 +1,1794 @@
+{
+  "scope": "Small public engineering corpus; not Krisp parity",
+  "packages": {
+    "dpdfnet": "0.5.1",
+    "onnxruntime": "1.30.0",
+    "pystoi": "0.4.1",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1"
+  },
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "models": {
+    "dpdfnet2_48khz_hr": {
+      "sha256": "7f0575a5cec0ba4ffd8f8bd657e06d007e4ccdd955d76faab922b9d3291dc14b",
+      "startup_ms": 864.6829999634065
+    },
+    "dpdfnet8_48khz_hr": {
+      "sha256": "7b3afbb260a08fe9af3d16e3bda992971be1e7e951d1dee7c2d235f5c43f5631",
+      "startup_ms": 44.57479197299108
+    },
+    "egorp": {
+      "input": "4f27631e97b2ad8bae3b8578f3b84b80d70874054b2112ddcc9cdac29ddac4ae",
+      "wasm": "e133417d08bee384d8e60de27efa91da3d858920ed800d4794d490a177300600",
+      "model": "c94d91f70911001c946e0fabb4aa9adc37045f45a03b56008cb0c8244cb63616",
+      "worklet": "0af7a2b4967688b13a59e605d7cff4f89be79da1a7da53b661648c1a64d4dda2",
+      "runtime": "Node WASM, not browser scheduling"
+    }
+  },
+  "results": [
+    {
+      "sample": "p232_013",
+      "case": "noisy",
+      "engine": "egorp",
+      "input_sha256": "792e6137d41cf9b3a27c2bc962be6838de2d53d204ae402aac6962dcb7c965cc",
+      "clean_sha256": "d7a51b4fdfb02657cf9410dbd34b4ea165acbec48581a8a074e1d45fdd3b3334",
+      "scores": {
+        "delay_samples": 1920,
+        "delay_ms": 40.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 15.776446575598786,
+        "unscaled_sdr_db": 15.641002184809636,
+        "speech_projection_gain_db": -0.5766630821649068,
+        "peak": 0.4915488362312317,
+        "samples_above_full_scale": 0,
+        "compared_samples": 189284,
+        "stoi": 0.9511624062566094,
+        "estoi": 0.8977260549020851
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 6.7236434451929945,
+        "unscaled_sdr_db": 6.718138543689567,
+        "speech_projection_gain_db": 0.0054967271545021245,
+        "peak": 0.603363037109375,
+        "samples_above_full_scale": 0,
+        "compared_samples": 189284,
+        "stoi": 0.9442679494721017,
+        "estoi": 0.8131916914748657
+      },
+      "timing": {
+        "engine": "Egorp",
+        "strength": 80,
+        "inputSamples": 189284,
+        "outputSamples": 237284,
+        "tailSamples": 48000,
+        "sampleRate": 48000,
+        "startupMs": 316.49016700000004,
+        "timing": {
+          "elapsedMs": 387.3862049999976,
+          "realTimeFactor": 0.07836406095649046,
+          "quantum": 128,
+          "quantumBudgetMs": 2.6666666666666665,
+          "p95Ms": 0.9786250000000791,
+          "p99Ms": 1.0572090000000571,
+          "maxMs": 10.80537499999997
+        },
+        "messages": [
+          {
+            "type": "ready",
+            "frameLength": 480,
+            "sampleRate": 48000
+          }
+        ],
+        "hashes": {
+          "input": "792e6137d41cf9b3a27c2bc962be6838de2d53d204ae402aac6962dcb7c965cc",
+          "wasm": "e133417d08bee384d8e60de27efa91da3d858920ed800d4794d490a177300600",
+          "model": "c94d91f70911001c946e0fabb4aa9adc37045f45a03b56008cb0c8244cb63616",
+          "worklet": "0af7a2b4967688b13a59e605d7cff4f89be79da1a7da53b661648c1a64d4dda2"
+        },
+        "node": "v24.19.0",
+        "platform": "darwin",
+        "architecture": "arm64"
+      }
+    },
+    {
+      "sample": "p232_013",
+      "case": "noisy",
+      "engine": "dpdfnet2_48khz_hr",
+      "input_sha256": "792e6137d41cf9b3a27c2bc962be6838de2d53d204ae402aac6962dcb7c965cc",
+      "clean_sha256": "d7a51b4fdfb02657cf9410dbd34b4ea165acbec48581a8a074e1d45fdd3b3334",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 15.88048430458077,
+        "unscaled_sdr_db": 15.880127034999878,
+        "speech_projection_gain_db": -0.4490101568150737,
+        "peak": 0.4950588643550873,
+        "samples_above_full_scale": 0,
+        "compared_samples": 189284,
+        "stoi": 0.9665455227831854,
+        "estoi": 0.9066566866919097
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 6.7236434451929945,
+        "unscaled_sdr_db": 6.718138543689567,
+        "speech_projection_gain_db": 0.0054967271545021245,
+        "peak": 0.603363037109375,
+        "samples_above_full_scale": 0,
+        "compared_samples": 189284,
+        "stoi": 0.9442679494721017,
+        "estoi": 0.8131916914748657
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.08560109388487733,
+        "p99_ms": 0.9378095052670689,
+        "max_ms": 2.3404579842463136,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p232_013",
+      "case": "noisy",
+      "engine": "dpdfnet8_48khz_hr",
+      "input_sha256": "792e6137d41cf9b3a27c2bc962be6838de2d53d204ae402aac6962dcb7c965cc",
+      "clean_sha256": "d7a51b4fdfb02657cf9410dbd34b4ea165acbec48581a8a074e1d45fdd3b3334",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 16.077139192759947,
+        "unscaled_sdr_db": 16.127193310316926,
+        "speech_projection_gain_db": -0.3683192558986419,
+        "peak": 0.5014952421188354,
+        "samples_above_full_scale": 0,
+        "compared_samples": 189284,
+        "stoi": 0.9624498898293994,
+        "estoi": 0.9100271297165397
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 6.7236434451929945,
+        "unscaled_sdr_db": 6.718138543689567,
+        "speech_projection_gain_db": 0.0054967271545021245,
+        "peak": 0.603363037109375,
+        "samples_above_full_scale": 0,
+        "compared_samples": 189284,
+        "stoi": 0.9442679494721017,
+        "estoi": 0.8131916914748657
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.23719472812977854,
+        "p99_ms": 3.437067508930341,
+        "max_ms": 3.9690419798716903,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p232_013",
+      "case": "clean",
+      "engine": "egorp",
+      "input_sha256": "d7a51b4fdfb02657cf9410dbd34b4ea165acbec48581a8a074e1d45fdd3b3334",
+      "clean_sha256": "d7a51b4fdfb02657cf9410dbd34b4ea165acbec48581a8a074e1d45fdd3b3334",
+      "scores": {
+        "delay_samples": 1920,
+        "delay_ms": 40.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 30.68049862664809,
+        "unscaled_sdr_db": 30.6829177787476,
+        "speech_projection_gain_db": -0.011805550393127048,
+        "peak": 0.4999999403953552,
+        "samples_above_full_scale": 0,
+        "compared_samples": 189284,
+        "stoi": 0.9892524892342608,
+        "estoi": 0.9796051313242841
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 231.16068739261752,
+        "unscaled_sdr_db": 231.16068739261752,
+        "speech_projection_gain_db": 0.0,
+        "peak": 0.5,
+        "samples_above_full_scale": 0,
+        "compared_samples": 189284,
+        "stoi": 0.9999999999999998,
+        "estoi": 1.0
+      },
+      "timing": {
+        "engine": "Egorp",
+        "strength": 80,
+        "inputSamples": 189284,
+        "outputSamples": 237284,
+        "tailSamples": 48000,
+        "sampleRate": 48000,
+        "startupMs": 288.971083,
+        "timing": {
+          "elapsedMs": 284.01487899999967,
+          "realTimeFactor": 0.0574531539926838,
+          "quantum": 128,
+          "quantumBudgetMs": 2.6666666666666665,
+          "p95Ms": 0.7244999999999777,
+          "p99Ms": 1.0700410000000034,
+          "maxMs": 10.613458000000037
+        },
+        "messages": [
+          {
+            "type": "ready",
+            "frameLength": 480,
+            "sampleRate": 48000
+          }
+        ],
+        "hashes": {
+          "input": "d7a51b4fdfb02657cf9410dbd34b4ea165acbec48581a8a074e1d45fdd3b3334",
+          "wasm": "e133417d08bee384d8e60de27efa91da3d858920ed800d4794d490a177300600",
+          "model": "c94d91f70911001c946e0fabb4aa9adc37045f45a03b56008cb0c8244cb63616",
+          "worklet": "0af7a2b4967688b13a59e605d7cff4f89be79da1a7da53b661648c1a64d4dda2"
+        },
+        "node": "v24.19.0",
+        "platform": "darwin",
+        "architecture": "arm64"
+      }
+    },
+    {
+      "sample": "p232_013",
+      "case": "clean",
+      "engine": "dpdfnet2_48khz_hr",
+      "input_sha256": "d7a51b4fdfb02657cf9410dbd34b4ea165acbec48581a8a074e1d45fdd3b3334",
+      "clean_sha256": "d7a51b4fdfb02657cf9410dbd34b4ea165acbec48581a8a074e1d45fdd3b3334",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 23.617522109373095,
+        "unscaled_sdr_db": 23.24147783909693,
+        "speech_projection_gain_db": -0.21619934075761157,
+        "peak": 0.48881280422210693,
+        "samples_above_full_scale": 0,
+        "compared_samples": 189284,
+        "stoi": 0.9892976972799148,
+        "estoi": 0.9873203749326895
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 231.16068739261752,
+        "unscaled_sdr_db": 231.16068739261752,
+        "speech_projection_gain_db": 0.0,
+        "peak": 0.5,
+        "samples_above_full_scale": 0,
+        "compared_samples": 189284,
+        "stoi": 0.9999999999999998,
+        "estoi": 1.0
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.08502628595445945,
+        "p99_ms": 0.9496970102190971,
+        "max_ms": 1.3225000002421439,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p232_013",
+      "case": "clean",
+      "engine": "dpdfnet8_48khz_hr",
+      "input_sha256": "d7a51b4fdfb02657cf9410dbd34b4ea165acbec48581a8a074e1d45fdd3b3334",
+      "clean_sha256": "d7a51b4fdfb02657cf9410dbd34b4ea165acbec48581a8a074e1d45fdd3b3334",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 23.481956690556316,
+        "unscaled_sdr_db": 23.11561613417026,
+        "speech_projection_gain_db": -0.2180072377785047,
+        "peak": 0.4910110831260681,
+        "samples_above_full_scale": 0,
+        "compared_samples": 189284,
+        "stoi": 0.9881222238266618,
+        "estoi": 0.986015517643613
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 231.16068739261752,
+        "unscaled_sdr_db": 231.16068739261752,
+        "speech_projection_gain_db": 0.0,
+        "peak": 0.5,
+        "samples_above_full_scale": 0,
+        "compared_samples": 189284,
+        "stoi": 0.9999999999999998,
+        "estoi": 1.0
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.23352123005550843,
+        "p99_ms": 2.491905497154221,
+        "max_ms": 3.3429169561713934,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p232_019",
+      "case": "noisy",
+      "engine": "egorp",
+      "input_sha256": "a48d16b180983c0a4c3bcb439753921dece9ee50bd31b166bc21d769c02fddb7",
+      "clean_sha256": "2268caefff20ce9658a154c1481cc37ebf89347b3ef848b8a07115be3ec9c069",
+      "scores": {
+        "delay_samples": 1920,
+        "delay_ms": 40.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 13.014217890011878,
+        "unscaled_sdr_db": 13.042855491519562,
+        "speech_projection_gain_db": -0.8358732017451953,
+        "peak": 0.4741740822792053,
+        "samples_above_full_scale": 0,
+        "compared_samples": 323307,
+        "stoi": 0.9600575019850407,
+        "estoi": 0.9261282955175902
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 2.0568961199529197,
+        "unscaled_sdr_db": 2.0463163942985094,
+        "speech_projection_gain_db": 0.010569411870679528,
+        "peak": 0.52178955078125,
+        "samples_above_full_scale": 0,
+        "compared_samples": 323307,
+        "stoi": 0.9794965513037898,
+        "estoi": 0.9352555907308473
+      },
+      "timing": {
+        "engine": "Egorp",
+        "strength": 80,
+        "inputSamples": 323307,
+        "outputSamples": 371307,
+        "tailSamples": 48000,
+        "sampleRate": 48000,
+        "startupMs": 291.559958,
+        "timing": {
+          "elapsedMs": 618.6932490000037,
+          "realTimeFactor": 0.07998038268063941,
+          "quantum": 128,
+          "quantumBudgetMs": 2.6666666666666665,
+          "p95Ms": 0.9726660000000038,
+          "p99Ms": 1.0361669999999776,
+          "maxMs": 10.590249999999969
+        },
+        "messages": [
+          {
+            "type": "ready",
+            "frameLength": 480,
+            "sampleRate": 48000
+          }
+        ],
+        "hashes": {
+          "input": "a48d16b180983c0a4c3bcb439753921dece9ee50bd31b166bc21d769c02fddb7",
+          "wasm": "e133417d08bee384d8e60de27efa91da3d858920ed800d4794d490a177300600",
+          "model": "c94d91f70911001c946e0fabb4aa9adc37045f45a03b56008cb0c8244cb63616",
+          "worklet": "0af7a2b4967688b13a59e605d7cff4f89be79da1a7da53b661648c1a64d4dda2"
+        },
+        "node": "v24.19.0",
+        "platform": "darwin",
+        "architecture": "arm64"
+      }
+    },
+    {
+      "sample": "p232_019",
+      "case": "noisy",
+      "engine": "dpdfnet2_48khz_hr",
+      "input_sha256": "a48d16b180983c0a4c3bcb439753921dece9ee50bd31b166bc21d769c02fddb7",
+      "clean_sha256": "2268caefff20ce9658a154c1481cc37ebf89347b3ef848b8a07115be3ec9c069",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 19.798304812406812,
+        "unscaled_sdr_db": 19.728822243246942,
+        "speech_projection_gain_db": -0.23720486169027302,
+        "peak": 0.5055323243141174,
+        "samples_above_full_scale": 0,
+        "compared_samples": 323307,
+        "stoi": 0.9803263254451328,
+        "estoi": 0.9619254858380991
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 2.0568961199529197,
+        "unscaled_sdr_db": 2.0463163942985094,
+        "speech_projection_gain_db": 0.010569411870679528,
+        "peak": 0.52178955078125,
+        "samples_above_full_scale": 0,
+        "compared_samples": 323307,
+        "stoi": 0.9794965513037898,
+        "estoi": 0.9352555907308473
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.08668306912957313,
+        "p99_ms": 1.3067011785460636,
+        "max_ms": 3.3353749895468354,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p232_019",
+      "case": "noisy",
+      "engine": "dpdfnet8_48khz_hr",
+      "input_sha256": "a48d16b180983c0a4c3bcb439753921dece9ee50bd31b166bc21d769c02fddb7",
+      "clean_sha256": "2268caefff20ce9658a154c1481cc37ebf89347b3ef848b8a07115be3ec9c069",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 19.591280775146334,
+        "unscaled_sdr_db": 19.450811860534706,
+        "speech_projection_gain_db": -0.28850523706789744,
+        "peak": 0.5037418603897095,
+        "samples_above_full_scale": 0,
+        "compared_samples": 323307,
+        "stoi": 0.9795885769954921,
+        "estoi": 0.9625677387392138
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 2.0568961199529197,
+        "unscaled_sdr_db": 2.0463163942985094,
+        "speech_projection_gain_db": 0.010569411870679528,
+        "peak": 0.52178955078125,
+        "samples_above_full_scale": 0,
+        "compared_samples": 323307,
+        "stoi": 0.9794965513037898,
+        "estoi": 0.9352555907308473
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.23203830165368594,
+        "p99_ms": 2.5173399318009615,
+        "max_ms": 2.8009170200675726,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p232_019",
+      "case": "clean",
+      "engine": "egorp",
+      "input_sha256": "2268caefff20ce9658a154c1481cc37ebf89347b3ef848b8a07115be3ec9c069",
+      "clean_sha256": "2268caefff20ce9658a154c1481cc37ebf89347b3ef848b8a07115be3ec9c069",
+      "scores": {
+        "delay_samples": 1920,
+        "delay_ms": 40.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 30.717693347522324,
+        "unscaled_sdr_db": 30.720138927654528,
+        "speech_projection_gain_db": -0.011624343820522295,
+        "peak": 0.5,
+        "samples_above_full_scale": 0,
+        "compared_samples": 323307,
+        "stoi": 0.9927710276145952,
+        "estoi": 0.9853005163744527
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 231.0280133965071,
+        "unscaled_sdr_db": 231.0280133965071,
+        "speech_projection_gain_db": 0.0,
+        "peak": 0.5,
+        "samples_above_full_scale": 0,
+        "compared_samples": 323307,
+        "stoi": 0.9999999999999998,
+        "estoi": 1.0
+      },
+      "timing": {
+        "engine": "Egorp",
+        "strength": 80,
+        "inputSamples": 323307,
+        "outputSamples": 371307,
+        "tailSamples": 48000,
+        "sampleRate": 48000,
+        "startupMs": 307.815041,
+        "timing": {
+          "elapsedMs": 425.891956,
+          "realTimeFactor": 0.055056365455000845,
+          "quantum": 128,
+          "quantumBudgetMs": 2.6666666666666665,
+          "p95Ms": 0.6996669999999767,
+          "p99Ms": 1.0356249999999818,
+          "maxMs": 11.26600000000002
+        },
+        "messages": [
+          {
+            "type": "ready",
+            "frameLength": 480,
+            "sampleRate": 48000
+          }
+        ],
+        "hashes": {
+          "input": "2268caefff20ce9658a154c1481cc37ebf89347b3ef848b8a07115be3ec9c069",
+          "wasm": "e133417d08bee384d8e60de27efa91da3d858920ed800d4794d490a177300600",
+          "model": "c94d91f70911001c946e0fabb4aa9adc37045f45a03b56008cb0c8244cb63616",
+          "worklet": "0af7a2b4967688b13a59e605d7cff4f89be79da1a7da53b661648c1a64d4dda2"
+        },
+        "node": "v24.19.0",
+        "platform": "darwin",
+        "architecture": "arm64"
+      }
+    },
+    {
+      "sample": "p232_019",
+      "case": "clean",
+      "engine": "dpdfnet2_48khz_hr",
+      "input_sha256": "2268caefff20ce9658a154c1481cc37ebf89347b3ef848b8a07115be3ec9c069",
+      "clean_sha256": "2268caefff20ce9658a154c1481cc37ebf89347b3ef848b8a07115be3ec9c069",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 22.914886376825592,
+        "unscaled_sdr_db": 22.58211188158142,
+        "speech_projection_gain_db": -0.22740427525482254,
+        "peak": 0.5061008334159851,
+        "samples_above_full_scale": 0,
+        "compared_samples": 323307,
+        "stoi": 0.9896751795002263,
+        "estoi": 0.9906311935782945
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 231.0280133965071,
+        "unscaled_sdr_db": 231.0280133965071,
+        "speech_projection_gain_db": 0.0,
+        "peak": 0.5,
+        "samples_above_full_scale": 0,
+        "compared_samples": 323307,
+        "stoi": 0.9999999999999998,
+        "estoi": 1.0
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.08490138133092559,
+        "p99_ms": 0.9417190041858703,
+        "max_ms": 1.3252079952508211,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p232_019",
+      "case": "clean",
+      "engine": "dpdfnet8_48khz_hr",
+      "input_sha256": "2268caefff20ce9658a154c1481cc37ebf89347b3ef848b8a07115be3ec9c069",
+      "clean_sha256": "2268caefff20ce9658a154c1481cc37ebf89347b3ef848b8a07115be3ec9c069",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 22.8068294210382,
+        "unscaled_sdr_db": 22.428374747373017,
+        "speech_projection_gain_db": -0.24321688434226138,
+        "peak": 0.5047516822814941,
+        "samples_above_full_scale": 0,
+        "compared_samples": 323307,
+        "stoi": 0.9958824132729662,
+        "estoi": 0.9953532567785646
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 231.0280133965071,
+        "unscaled_sdr_db": 231.0280133965071,
+        "speech_projection_gain_db": 0.0,
+        "peak": 0.5,
+        "samples_above_full_scale": 0,
+        "compared_samples": 323307,
+        "stoi": 0.9999999999999998,
+        "estoi": 1.0
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.23221273617596347,
+        "p99_ms": 2.5761512888129787,
+        "max_ms": 3.475499979685992,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p232_028",
+      "case": "noisy",
+      "engine": "egorp",
+      "input_sha256": "571f2f1963f9249db5381f640b92b5e5727bfde3bb4fd9e11703816282e498ac",
+      "clean_sha256": "d65b68879a3f2a31ea58397e52be67d972cfdf1ba4a1f005fb01caea616f363c",
+      "scores": {
+        "delay_samples": 1920,
+        "delay_ms": 40.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 17.219874551269566,
+        "unscaled_sdr_db": 17.11589615897985,
+        "speech_projection_gain_db": -0.4168241239982925,
+        "peak": 0.49825602769851685,
+        "samples_above_full_scale": 0,
+        "compared_samples": 99118,
+        "stoi": 0.8475174404535057,
+        "estoi": 0.7107136858727119
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 0.20474943952551156,
+        "unscaled_sdr_db": 0.21411847202821477,
+        "speech_projection_gain_db": -0.009374341110490523,
+        "peak": 0.5869140625,
+        "samples_above_full_scale": 0,
+        "compared_samples": 99118,
+        "stoi": 0.804734594155174,
+        "estoi": 0.580183334756982
+      },
+      "timing": {
+        "engine": "Egorp",
+        "strength": 80,
+        "inputSamples": 99118,
+        "outputSamples": 147118,
+        "tailSamples": 48000,
+        "sampleRate": 48000,
+        "startupMs": 286.64275,
+        "timing": {
+          "elapsedMs": 198.1608869999992,
+          "realTimeFactor": 0.06465369686917959,
+          "quantum": 128,
+          "quantumBudgetMs": 2.6666666666666665,
+          "p95Ms": 0.9902909999999565,
+          "p99Ms": 1.0512499999999818,
+          "maxMs": 6.180000000000007
+        },
+        "messages": [
+          {
+            "type": "ready",
+            "frameLength": 480,
+            "sampleRate": 48000
+          }
+        ],
+        "hashes": {
+          "input": "571f2f1963f9249db5381f640b92b5e5727bfde3bb4fd9e11703816282e498ac",
+          "wasm": "e133417d08bee384d8e60de27efa91da3d858920ed800d4794d490a177300600",
+          "model": "c94d91f70911001c946e0fabb4aa9adc37045f45a03b56008cb0c8244cb63616",
+          "worklet": "0af7a2b4967688b13a59e605d7cff4f89be79da1a7da53b661648c1a64d4dda2"
+        },
+        "node": "v24.19.0",
+        "platform": "darwin",
+        "architecture": "arm64"
+      }
+    },
+    {
+      "sample": "p232_028",
+      "case": "noisy",
+      "engine": "dpdfnet2_48khz_hr",
+      "input_sha256": "571f2f1963f9249db5381f640b92b5e5727bfde3bb4fd9e11703816282e498ac",
+      "clean_sha256": "d65b68879a3f2a31ea58397e52be67d972cfdf1ba4a1f005fb01caea616f363c",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 16.39719550134051,
+        "unscaled_sdr_db": 16.468875136216756,
+        "speech_projection_gain_db": -0.3008562143160879,
+        "peak": 0.5066441297531128,
+        "samples_above_full_scale": 0,
+        "compared_samples": 99118,
+        "stoi": 0.8564713590241374,
+        "estoi": 0.6986038939762991
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 0.20474943952551156,
+        "unscaled_sdr_db": 0.21411847202821477,
+        "speech_projection_gain_db": -0.009374341110490523,
+        "peak": 0.5869140625,
+        "samples_above_full_scale": 0,
+        "compared_samples": 99118,
+        "stoi": 0.804734594155174,
+        "estoi": 0.580183334756982
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.08532967037712422,
+        "p99_ms": 0.9548720403108746,
+        "max_ms": 1.2876249966211617,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p232_028",
+      "case": "noisy",
+      "engine": "dpdfnet8_48khz_hr",
+      "input_sha256": "571f2f1963f9249db5381f640b92b5e5727bfde3bb4fd9e11703816282e498ac",
+      "clean_sha256": "d65b68879a3f2a31ea58397e52be67d972cfdf1ba4a1f005fb01caea616f363c",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 15.283715075071662,
+        "unscaled_sdr_db": 15.409532286183286,
+        "speech_projection_gain_db": -0.27587845879814327,
+        "peak": 0.5056066513061523,
+        "samples_above_full_scale": 0,
+        "compared_samples": 99118,
+        "stoi": 0.8564927229867032,
+        "estoi": 0.700305850686212
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 0.20474943952551156,
+        "unscaled_sdr_db": 0.21411847202821477,
+        "speech_projection_gain_db": -0.009374341110490523,
+        "peak": 0.5869140625,
+        "samples_above_full_scale": 0,
+        "compared_samples": 99118,
+        "stoi": 0.804734594155174,
+        "estoi": 0.580183334756982
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.2316880736466655,
+        "p99_ms": 2.4843510263599455,
+        "max_ms": 3.0379999661818147,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p232_028",
+      "case": "clean",
+      "engine": "egorp",
+      "input_sha256": "d65b68879a3f2a31ea58397e52be67d972cfdf1ba4a1f005fb01caea616f363c",
+      "clean_sha256": "d65b68879a3f2a31ea58397e52be67d972cfdf1ba4a1f005fb01caea616f363c",
+      "scores": {
+        "delay_samples": 1920,
+        "delay_ms": 40.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 31.069209357168134,
+        "unscaled_sdr_db": 31.07170668785512,
+        "speech_projection_gain_db": -0.010277938618038253,
+        "peak": 0.5,
+        "samples_above_full_scale": 0,
+        "compared_samples": 99118,
+        "stoi": 0.9619981167905668,
+        "estoi": 0.9491443342920655
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 227.90606373100087,
+        "unscaled_sdr_db": 227.90606373100087,
+        "speech_projection_gain_db": 0.0,
+        "peak": 0.5,
+        "samples_above_full_scale": 0,
+        "compared_samples": 99118,
+        "stoi": 0.9999999999999992,
+        "estoi": 1.0
+      },
+      "timing": {
+        "engine": "Egorp",
+        "strength": 80,
+        "inputSamples": 99118,
+        "outputSamples": 147118,
+        "tailSamples": 48000,
+        "sampleRate": 48000,
+        "startupMs": 292.925458,
+        "timing": {
+          "elapsedMs": 233.9951589999991,
+          "realTimeFactor": 0.0763452985494634,
+          "quantum": 128,
+          "quantumBudgetMs": 2.6666666666666665,
+          "p95Ms": 0.9519170000000372,
+          "p99Ms": 1.021458999999993,
+          "maxMs": 10.569250000000011
+        },
+        "messages": [
+          {
+            "type": "ready",
+            "frameLength": 480,
+            "sampleRate": 48000
+          }
+        ],
+        "hashes": {
+          "input": "d65b68879a3f2a31ea58397e52be67d972cfdf1ba4a1f005fb01caea616f363c",
+          "wasm": "e133417d08bee384d8e60de27efa91da3d858920ed800d4794d490a177300600",
+          "model": "c94d91f70911001c946e0fabb4aa9adc37045f45a03b56008cb0c8244cb63616",
+          "worklet": "0af7a2b4967688b13a59e605d7cff4f89be79da1a7da53b661648c1a64d4dda2"
+        },
+        "node": "v24.19.0",
+        "platform": "darwin",
+        "architecture": "arm64"
+      }
+    },
+    {
+      "sample": "p232_028",
+      "case": "clean",
+      "engine": "dpdfnet2_48khz_hr",
+      "input_sha256": "d65b68879a3f2a31ea58397e52be67d972cfdf1ba4a1f005fb01caea616f363c",
+      "clean_sha256": "d65b68879a3f2a31ea58397e52be67d972cfdf1ba4a1f005fb01caea616f363c",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 22.380045479678312,
+        "unscaled_sdr_db": 22.07542193961213,
+        "speech_projection_gain_db": -0.2375339197630658,
+        "peak": 0.48910656571388245,
+        "samples_above_full_scale": 0,
+        "compared_samples": 99118,
+        "stoi": 0.9949264324032172,
+        "estoi": 0.9746317237326045
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 227.90606373100087,
+        "unscaled_sdr_db": 227.90606373100087,
+        "speech_projection_gain_db": 0.0,
+        "peak": 0.5,
+        "samples_above_full_scale": 0,
+        "compared_samples": 99118,
+        "stoi": 0.9999999999999992,
+        "estoi": 1.0
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.08496407293168531,
+        "p99_ms": 0.9339044918306172,
+        "max_ms": 1.338500005658716,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p232_028",
+      "case": "clean",
+      "engine": "dpdfnet8_48khz_hr",
+      "input_sha256": "d65b68879a3f2a31ea58397e52be67d972cfdf1ba4a1f005fb01caea616f363c",
+      "clean_sha256": "d65b68879a3f2a31ea58397e52be67d972cfdf1ba4a1f005fb01caea616f363c",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 22.18705669623146,
+        "unscaled_sdr_db": 21.86825307246164,
+        "speech_projection_gain_db": -0.24869088795761882,
+        "peak": 0.4877208471298218,
+        "samples_above_full_scale": 0,
+        "compared_samples": 99118,
+        "stoi": 0.9907345284797081,
+        "estoi": 0.9707042323943766
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 227.90606373100087,
+        "unscaled_sdr_db": 227.90606373100087,
+        "speech_projection_gain_db": 0.0,
+        "peak": 0.5,
+        "samples_above_full_scale": 0,
+        "compared_samples": 99118,
+        "stoi": 0.9999999999999992,
+        "estoi": 1.0
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.2302138149626068,
+        "p99_ms": 2.44027599459514,
+        "max_ms": 2.9709580121561885,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p257_003",
+      "case": "noisy",
+      "engine": "egorp",
+      "input_sha256": "715d32978b82857886e2fa1f95b56d64e8436410b135e79313a65506b1c12cc1",
+      "clean_sha256": "394acaaf0d1bf55678ed10e4ce5f09cc691dcd4e0e99d0d66809637dbb37e197",
+      "scores": {
+        "delay_samples": 1920,
+        "delay_ms": 40.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 10.739606446258193,
+        "unscaled_sdr_db": 10.8762348022561,
+        "speech_projection_gain_db": -1.2910804145861023,
+        "peak": 0.4807051122188568,
+        "samples_above_full_scale": 0,
+        "compared_samples": 265028,
+        "stoi": 0.9215623070141473,
+        "estoi": 0.8516421637644058
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 6.995345422019039,
+        "unscaled_sdr_db": 7.000243965758379,
+        "speech_projection_gain_db": -0.004905482768095721,
+        "peak": 0.495574951171875,
+        "samples_above_full_scale": 0,
+        "compared_samples": 265028,
+        "stoi": 0.9499296940942535,
+        "estoi": 0.8197418179010677
+      },
+      "timing": {
+        "engine": "Egorp",
+        "strength": 80,
+        "inputSamples": 265028,
+        "outputSamples": 313028,
+        "tailSamples": 48000,
+        "sampleRate": 48000,
+        "startupMs": 287.132333,
+        "timing": {
+          "elapsedMs": 554.3226139999994,
+          "realTimeFactor": 0.0850003369411042,
+          "quantum": 128,
+          "quantumBudgetMs": 2.6666666666666665,
+          "p95Ms": 0.9725419999999758,
+          "p99Ms": 1.0283340000000294,
+          "maxMs": 10.587041999999997
+        },
+        "messages": [
+          {
+            "type": "ready",
+            "frameLength": 480,
+            "sampleRate": 48000
+          }
+        ],
+        "hashes": {
+          "input": "715d32978b82857886e2fa1f95b56d64e8436410b135e79313a65506b1c12cc1",
+          "wasm": "e133417d08bee384d8e60de27efa91da3d858920ed800d4794d490a177300600",
+          "model": "c94d91f70911001c946e0fabb4aa9adc37045f45a03b56008cb0c8244cb63616",
+          "worklet": "0af7a2b4967688b13a59e605d7cff4f89be79da1a7da53b661648c1a64d4dda2"
+        },
+        "node": "v24.19.0",
+        "platform": "darwin",
+        "architecture": "arm64"
+      }
+    },
+    {
+      "sample": "p257_003",
+      "case": "noisy",
+      "engine": "dpdfnet2_48khz_hr",
+      "input_sha256": "715d32978b82857886e2fa1f95b56d64e8436410b135e79313a65506b1c12cc1",
+      "clean_sha256": "394acaaf0d1bf55678ed10e4ce5f09cc691dcd4e0e99d0d66809637dbb37e197",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 17.72729940581721,
+        "unscaled_sdr_db": 17.78748662201301,
+        "speech_projection_gain_db": -0.20613425948315223,
+        "peak": 0.5074017643928528,
+        "samples_above_full_scale": 0,
+        "compared_samples": 265028,
+        "stoi": 0.975583882333571,
+        "estoi": 0.9056170432920365
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 6.995345422019039,
+        "unscaled_sdr_db": 7.000243965758379,
+        "speech_projection_gain_db": -0.004905482768095721,
+        "peak": 0.495574951171875,
+        "samples_above_full_scale": 0,
+        "compared_samples": 265028,
+        "stoi": 0.9499296940942535,
+        "estoi": 0.8197418179010677
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.0850184604074167,
+        "p99_ms": 0.9321429883129897,
+        "max_ms": 1.3919169432483613,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p257_003",
+      "case": "noisy",
+      "engine": "dpdfnet8_48khz_hr",
+      "input_sha256": "715d32978b82857886e2fa1f95b56d64e8436410b135e79313a65506b1c12cc1",
+      "clean_sha256": "394acaaf0d1bf55678ed10e4ce5f09cc691dcd4e0e99d0d66809637dbb37e197",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 17.77022507558356,
+        "unscaled_sdr_db": 17.832846057837347,
+        "speech_projection_gain_db": -0.19622520723325568,
+        "peak": 0.49600425362586975,
+        "samples_above_full_scale": 0,
+        "compared_samples": 265028,
+        "stoi": 0.9750775678698472,
+        "estoi": 0.9018720821092859
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 6.995345422019039,
+        "unscaled_sdr_db": 7.000243965758379,
+        "speech_projection_gain_db": -0.004905482768095721,
+        "peak": 0.495574951171875,
+        "samples_above_full_scale": 0,
+        "compared_samples": 265028,
+        "stoi": 0.9499296940942535,
+        "estoi": 0.8197418179010677
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.23169806391103434,
+        "p99_ms": 2.642287036869675,
+        "max_ms": 3.4622499952092767,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p257_003",
+      "case": "clean",
+      "engine": "egorp",
+      "input_sha256": "394acaaf0d1bf55678ed10e4ce5f09cc691dcd4e0e99d0d66809637dbb37e197",
+      "clean_sha256": "394acaaf0d1bf55678ed10e4ce5f09cc691dcd4e0e99d0d66809637dbb37e197",
+      "scores": {
+        "delay_samples": 1920,
+        "delay_ms": 40.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 20.37078788517705,
+        "unscaled_sdr_db": 20.40354992081089,
+        "speech_projection_gain_db": -0.11271438022357526,
+        "peak": 0.5,
+        "samples_above_full_scale": 0,
+        "compared_samples": 265028,
+        "stoi": 0.9654201388526636,
+        "estoi": 0.9267441298122513
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 230.68451762030836,
+        "unscaled_sdr_db": 230.68451762030836,
+        "speech_projection_gain_db": 0.0,
+        "peak": 0.5,
+        "samples_above_full_scale": 0,
+        "compared_samples": 265028,
+        "stoi": 0.9999999999999997,
+        "estoi": 1.0
+      },
+      "timing": {
+        "engine": "Egorp",
+        "strength": 80,
+        "inputSamples": 265028,
+        "outputSamples": 313028,
+        "tailSamples": 48000,
+        "sampleRate": 48000,
+        "startupMs": 294.444833,
+        "timing": {
+          "elapsedMs": 412.6198349999999,
+          "realTimeFactor": 0.06327150312432113,
+          "quantum": 128,
+          "quantumBudgetMs": 2.6666666666666665,
+          "p95Ms": 0.7967919999999822,
+          "p99Ms": 0.9810420000000022,
+          "maxMs": 10.709499999999991
+        },
+        "messages": [
+          {
+            "type": "ready",
+            "frameLength": 480,
+            "sampleRate": 48000
+          }
+        ],
+        "hashes": {
+          "input": "394acaaf0d1bf55678ed10e4ce5f09cc691dcd4e0e99d0d66809637dbb37e197",
+          "wasm": "e133417d08bee384d8e60de27efa91da3d858920ed800d4794d490a177300600",
+          "model": "c94d91f70911001c946e0fabb4aa9adc37045f45a03b56008cb0c8244cb63616",
+          "worklet": "0af7a2b4967688b13a59e605d7cff4f89be79da1a7da53b661648c1a64d4dda2"
+        },
+        "node": "v24.19.0",
+        "platform": "darwin",
+        "architecture": "arm64"
+      }
+    },
+    {
+      "sample": "p257_003",
+      "case": "clean",
+      "engine": "dpdfnet2_48khz_hr",
+      "input_sha256": "394acaaf0d1bf55678ed10e4ce5f09cc691dcd4e0e99d0d66809637dbb37e197",
+      "clean_sha256": "394acaaf0d1bf55678ed10e4ce5f09cc691dcd4e0e99d0d66809637dbb37e197",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 19.34461792768068,
+        "unscaled_sdr_db": 19.371060666374596,
+        "speech_projection_gain_db": -0.1700929184863792,
+        "peak": 0.503532350063324,
+        "samples_above_full_scale": 0,
+        "compared_samples": 265028,
+        "stoi": 0.994187103202402,
+        "estoi": 0.9729448929349714
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 230.68451762030836,
+        "unscaled_sdr_db": 230.68451762030836,
+        "speech_projection_gain_db": 0.0,
+        "peak": 0.5,
+        "samples_above_full_scale": 0,
+        "compared_samples": 265028,
+        "stoi": 0.9999999999999997,
+        "estoi": 1.0
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.0846334005517751,
+        "p99_ms": 0.9181215032003821,
+        "max_ms": 1.3005000073462725,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p257_003",
+      "case": "clean",
+      "engine": "dpdfnet8_48khz_hr",
+      "input_sha256": "394acaaf0d1bf55678ed10e4ce5f09cc691dcd4e0e99d0d66809637dbb37e197",
+      "clean_sha256": "394acaaf0d1bf55678ed10e4ce5f09cc691dcd4e0e99d0d66809637dbb37e197",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 19.365867991310356,
+        "unscaled_sdr_db": 19.361853961145137,
+        "speech_projection_gain_db": -0.20506841188848976,
+        "peak": 0.4974512755870819,
+        "samples_above_full_scale": 0,
+        "compared_samples": 265028,
+        "stoi": 0.9961760590939298,
+        "estoi": 0.9832096005072336
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 230.68451762030836,
+        "unscaled_sdr_db": 230.68451762030836,
+        "speech_projection_gain_db": 0.0,
+        "peak": 0.5,
+        "samples_above_full_scale": 0,
+        "compared_samples": 265028,
+        "stoi": 0.9999999999999997,
+        "estoi": 1.0
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.23139566639481057,
+        "p99_ms": 2.563308512326332,
+        "max_ms": 3.463124972768128,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p257_049",
+      "case": "noisy",
+      "engine": "egorp",
+      "input_sha256": "cebd97a8f974b46bd936109139ea54eadd93e1eb42b89c44e6c91eea5a0a7fde",
+      "clean_sha256": "94fe84df045724184b764431fe8ea06d280f17167c5d3bff6fe6ffe328e06d34",
+      "scores": {
+        "delay_samples": 1920,
+        "delay_ms": 40.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 8.635664474711838,
+        "unscaled_sdr_db": 9.024091086477009,
+        "speech_projection_gain_db": -1.779197212172937,
+        "peak": 0.3822053074836731,
+        "samples_above_full_scale": 0,
+        "compared_samples": 151147,
+        "stoi": 0.9375806150840772,
+        "estoi": 0.8595817558119808
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 6.840871980326937,
+        "unscaled_sdr_db": 6.814539516418646,
+        "speech_projection_gain_db": 0.026142952281178432,
+        "peak": 0.496307373046875,
+        "samples_above_full_scale": 0,
+        "compared_samples": 151147,
+        "stoi": 0.9382850965371892,
+        "estoi": 0.785711397910077
+      },
+      "timing": {
+        "engine": "Egorp",
+        "strength": 80,
+        "inputSamples": 151147,
+        "outputSamples": 199147,
+        "tailSamples": 48000,
+        "sampleRate": 48000,
+        "startupMs": 287.0705,
+        "timing": {
+          "elapsedMs": 350.72733300000004,
+          "realTimeFactor": 0.08453510213058697,
+          "quantum": 128,
+          "quantumBudgetMs": 2.6666666666666665,
+          "p95Ms": 0.9968749999999886,
+          "p99Ms": 1.1080410000000143,
+          "maxMs": 10.532749999999965
+        },
+        "messages": [
+          {
+            "type": "ready",
+            "frameLength": 480,
+            "sampleRate": 48000
+          }
+        ],
+        "hashes": {
+          "input": "cebd97a8f974b46bd936109139ea54eadd93e1eb42b89c44e6c91eea5a0a7fde",
+          "wasm": "e133417d08bee384d8e60de27efa91da3d858920ed800d4794d490a177300600",
+          "model": "c94d91f70911001c946e0fabb4aa9adc37045f45a03b56008cb0c8244cb63616",
+          "worklet": "0af7a2b4967688b13a59e605d7cff4f89be79da1a7da53b661648c1a64d4dda2"
+        },
+        "node": "v24.19.0",
+        "platform": "darwin",
+        "architecture": "arm64"
+      }
+    },
+    {
+      "sample": "p257_049",
+      "case": "noisy",
+      "engine": "dpdfnet2_48khz_hr",
+      "input_sha256": "cebd97a8f974b46bd936109139ea54eadd93e1eb42b89c44e6c91eea5a0a7fde",
+      "clean_sha256": "94fe84df045724184b764431fe8ea06d280f17167c5d3bff6fe6ffe328e06d34",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 16.88572518059827,
+        "unscaled_sdr_db": 16.968437439817137,
+        "speech_projection_gain_db": -0.21989474213053534,
+        "peak": 0.4957628846168518,
+        "samples_above_full_scale": 0,
+        "compared_samples": 151147,
+        "stoi": 0.9664594351272231,
+        "estoi": 0.8936813787598907
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 6.840871980326937,
+        "unscaled_sdr_db": 6.814539516418646,
+        "speech_projection_gain_db": 0.026142952281178432,
+        "peak": 0.496307373046875,
+        "samples_above_full_scale": 0,
+        "compared_samples": 151147,
+        "stoi": 0.9382850965371892,
+        "estoi": 0.785711397910077
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.08487210868498736,
+        "p99_ms": 0.9425857337191702,
+        "max_ms": 1.3260829728096724,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p257_049",
+      "case": "noisy",
+      "engine": "dpdfnet8_48khz_hr",
+      "input_sha256": "cebd97a8f974b46bd936109139ea54eadd93e1eb42b89c44e6c91eea5a0a7fde",
+      "clean_sha256": "94fe84df045724184b764431fe8ea06d280f17167c5d3bff6fe6ffe328e06d34",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 16.872238042426556,
+        "unscaled_sdr_db": 16.958198213811116,
+        "speech_projection_gain_db": -0.1475962173002925,
+        "peak": 0.505651593208313,
+        "samples_above_full_scale": 0,
+        "compared_samples": 151147,
+        "stoi": 0.9502185097743775,
+        "estoi": 0.8927009371465693
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 6.840871980326937,
+        "unscaled_sdr_db": 6.814539516418646,
+        "speech_projection_gain_db": 0.026142952281178432,
+        "peak": 0.496307373046875,
+        "samples_above_full_scale": 0,
+        "compared_samples": 151147,
+        "stoi": 0.9382850965371892,
+        "estoi": 0.785711397910077
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.2319965263441519,
+        "p99_ms": 2.562560355290771,
+        "max_ms": 2.8094580047763884,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p257_049",
+      "case": "clean",
+      "engine": "egorp",
+      "input_sha256": "94fe84df045724184b764431fe8ea06d280f17167c5d3bff6fe6ffe328e06d34",
+      "clean_sha256": "94fe84df045724184b764431fe8ea06d280f17167c5d3bff6fe6ffe328e06d34",
+      "scores": {
+        "delay_samples": 1920,
+        "delay_ms": 40.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 29.302460980630837,
+        "unscaled_sdr_db": 29.306190603257207,
+        "speech_projection_gain_db": -0.015475908525128935,
+        "peak": 0.49999991059303284,
+        "samples_above_full_scale": 0,
+        "compared_samples": 151147,
+        "stoi": 0.9923137613156574,
+        "estoi": 0.9889190649419597
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 226.6280871716916,
+        "unscaled_sdr_db": 226.6280871716916,
+        "speech_projection_gain_db": 0.0,
+        "peak": 0.5,
+        "samples_above_full_scale": 0,
+        "compared_samples": 151147,
+        "stoi": 0.9999999999999997,
+        "estoi": 1.0
+      },
+      "timing": {
+        "engine": "Egorp",
+        "strength": 80,
+        "inputSamples": 151147,
+        "outputSamples": 199147,
+        "tailSamples": 48000,
+        "sampleRate": 48000,
+        "startupMs": 291.677958,
+        "timing": {
+          "elapsedMs": 238.55377999999945,
+          "realTimeFactor": 0.05749813675325249,
+          "quantum": 128,
+          "quantumBudgetMs": 2.6666666666666665,
+          "p95Ms": 0.7119170000000281,
+          "p99Ms": 0.9840829999999983,
+          "maxMs": 10.547624999999982
+        },
+        "messages": [
+          {
+            "type": "ready",
+            "frameLength": 480,
+            "sampleRate": 48000
+          }
+        ],
+        "hashes": {
+          "input": "94fe84df045724184b764431fe8ea06d280f17167c5d3bff6fe6ffe328e06d34",
+          "wasm": "e133417d08bee384d8e60de27efa91da3d858920ed800d4794d490a177300600",
+          "model": "c94d91f70911001c946e0fabb4aa9adc37045f45a03b56008cb0c8244cb63616",
+          "worklet": "0af7a2b4967688b13a59e605d7cff4f89be79da1a7da53b661648c1a64d4dda2"
+        },
+        "node": "v24.19.0",
+        "platform": "darwin",
+        "architecture": "arm64"
+      }
+    },
+    {
+      "sample": "p257_049",
+      "case": "clean",
+      "engine": "dpdfnet2_48khz_hr",
+      "input_sha256": "94fe84df045724184b764431fe8ea06d280f17167c5d3bff6fe6ffe328e06d34",
+      "clean_sha256": "94fe84df045724184b764431fe8ea06d280f17167c5d3bff6fe6ffe328e06d34",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 18.772440241180917,
+        "unscaled_sdr_db": 18.81695151337525,
+        "speech_projection_gain_db": -0.16883798512387088,
+        "peak": 0.501118540763855,
+        "samples_above_full_scale": 0,
+        "compared_samples": 151147,
+        "stoi": 0.9788614373647836,
+        "estoi": 0.9644691638444512
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 226.6280871716916,
+        "unscaled_sdr_db": 226.6280871716916,
+        "speech_projection_gain_db": 0.0,
+        "peak": 0.5,
+        "samples_above_full_scale": 0,
+        "compared_samples": 151147,
+        "stoi": 0.9999999999999997,
+        "estoi": 1.0
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.0852753788496491,
+        "p99_ms": 0.9458355128299445,
+        "max_ms": 1.3511249562725425,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p257_049",
+      "case": "clean",
+      "engine": "dpdfnet8_48khz_hr",
+      "input_sha256": "94fe84df045724184b764431fe8ea06d280f17167c5d3bff6fe6ffe328e06d34",
+      "clean_sha256": "94fe84df045724184b764431fe8ea06d280f17167c5d3bff6fe6ffe328e06d34",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 18.61537055532685,
+        "unscaled_sdr_db": 18.623923213795713,
+        "speech_projection_gain_db": -0.22984363269606972,
+        "peak": 0.4982893466949463,
+        "samples_above_full_scale": 0,
+        "compared_samples": 151147,
+        "stoi": 0.9542037495309812,
+        "estoi": 0.9457005666477518
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 226.6280871716916,
+        "unscaled_sdr_db": 226.6280871716916,
+        "speech_projection_gain_db": 0.0,
+        "peak": 0.5,
+        "samples_above_full_scale": 0,
+        "compared_samples": 151147,
+        "stoi": 0.9999999999999997,
+        "estoi": 1.0
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.23082250761462889,
+        "p99_ms": 2.428895275807008,
+        "max_ms": 2.6888330467045307,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p257_212",
+      "case": "noisy",
+      "engine": "egorp",
+      "input_sha256": "e34ffa87666d30cfa94746d9d67c509b1a5323f835401972c51a1dcfc0731e30",
+      "clean_sha256": "4f27631e97b2ad8bae3b8578f3b84b80d70874054b2112ddcc9cdac29ddac4ae",
+      "scores": {
+        "delay_samples": 1920,
+        "delay_ms": 40.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 6.792818297180529,
+        "unscaled_sdr_db": 7.388721976799242,
+        "speech_projection_gain_db": -2.628909325369268,
+        "peak": 0.505615234375,
+        "samples_above_full_scale": 0,
+        "compared_samples": 123756,
+        "stoi": 0.8728269997482209,
+        "estoi": 0.8283167847240819
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 16.293261677899796,
+        "unscaled_sdr_db": 16.29048917973898,
+        "speech_projection_gain_db": 0.0027539097335709645,
+        "peak": 0.505615234375,
+        "samples_above_full_scale": 0,
+        "compared_samples": 123756,
+        "stoi": 0.9687924055494895,
+        "estoi": 0.8837115275456668
+      },
+      "timing": {
+        "engine": "Egorp",
+        "strength": 80,
+        "inputSamples": 123756,
+        "outputSamples": 171756,
+        "tailSamples": 48000,
+        "sampleRate": 48000,
+        "startupMs": 302.244375,
+        "timing": {
+          "elapsedMs": 300.3754609999977,
+          "realTimeFactor": 0.08394479452246145,
+          "quantum": 128,
+          "quantumBudgetMs": 2.6666666666666665,
+          "p95Ms": 1.006832999999972,
+          "p99Ms": 1.1469999999999914,
+          "maxMs": 10.68629199999998
+        },
+        "messages": [
+          {
+            "type": "ready",
+            "frameLength": 480,
+            "sampleRate": 48000
+          }
+        ],
+        "hashes": {
+          "input": "e34ffa87666d30cfa94746d9d67c509b1a5323f835401972c51a1dcfc0731e30",
+          "wasm": "e133417d08bee384d8e60de27efa91da3d858920ed800d4794d490a177300600",
+          "model": "c94d91f70911001c946e0fabb4aa9adc37045f45a03b56008cb0c8244cb63616",
+          "worklet": "0af7a2b4967688b13a59e605d7cff4f89be79da1a7da53b661648c1a64d4dda2"
+        },
+        "node": "v24.19.0",
+        "platform": "darwin",
+        "architecture": "arm64"
+      }
+    },
+    {
+      "sample": "p257_212",
+      "case": "noisy",
+      "engine": "dpdfnet2_48khz_hr",
+      "input_sha256": "e34ffa87666d30cfa94746d9d67c509b1a5323f835401972c51a1dcfc0731e30",
+      "clean_sha256": "4f27631e97b2ad8bae3b8578f3b84b80d70874054b2112ddcc9cdac29ddac4ae",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 22.115274320627087,
+        "unscaled_sdr_db": 22.1330834388983,
+        "speech_projection_gain_db": -0.022607194624157563,
+        "peak": 0.501509428024292,
+        "samples_above_full_scale": 0,
+        "compared_samples": 123756,
+        "stoi": 0.988231721355891,
+        "estoi": 0.965677795078726
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 16.293261677899796,
+        "unscaled_sdr_db": 16.29048917973898,
+        "speech_projection_gain_db": 0.0027539097335709645,
+        "peak": 0.505615234375,
+        "samples_above_full_scale": 0,
+        "compared_samples": 123756,
+        "stoi": 0.9687924055494895,
+        "estoi": 0.8837115275456668
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.08498846297022267,
+        "p99_ms": 0.9341405192390084,
+        "max_ms": 1.3303750311024487,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p257_212",
+      "case": "noisy",
+      "engine": "dpdfnet8_48khz_hr",
+      "input_sha256": "e34ffa87666d30cfa94746d9d67c509b1a5323f835401972c51a1dcfc0731e30",
+      "clean_sha256": "4f27631e97b2ad8bae3b8578f3b84b80d70874054b2112ddcc9cdac29ddac4ae",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 22.228068261133245,
+        "unscaled_sdr_db": 22.222224686558594,
+        "speech_projection_gain_db": -0.10962050080952407,
+        "peak": 0.49376416206359863,
+        "samples_above_full_scale": 0,
+        "compared_samples": 123756,
+        "stoi": 0.9894113225197295,
+        "estoi": 0.9611843818299723
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 16.293261677899796,
+        "unscaled_sdr_db": 16.29048917973898,
+        "speech_projection_gain_db": 0.0027539097335709645,
+        "peak": 0.505615234375,
+        "samples_above_full_scale": 0,
+        "compared_samples": 123756,
+        "stoi": 0.9687924055494895,
+        "estoi": 0.8837115275456668
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.2309737641523025,
+        "p99_ms": 2.4527689337264746,
+        "max_ms": 2.7260410133749247,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p257_212",
+      "case": "clean",
+      "engine": "egorp",
+      "input_sha256": "4f27631e97b2ad8bae3b8578f3b84b80d70874054b2112ddcc9cdac29ddac4ae",
+      "clean_sha256": "4f27631e97b2ad8bae3b8578f3b84b80d70874054b2112ddcc9cdac29ddac4ae",
+      "scores": {
+        "delay_samples": 1920,
+        "delay_ms": 40.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 31.063702664723813,
+        "unscaled_sdr_db": 31.066220859020945,
+        "speech_projection_gain_db": -0.01025634761608785,
+        "peak": 0.5,
+        "samples_above_full_scale": 0,
+        "compared_samples": 123756,
+        "stoi": 0.994873016719155,
+        "estoi": 0.9847606985486009
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 224.92437093089845,
+        "unscaled_sdr_db": 224.92437093089845,
+        "speech_projection_gain_db": 0.0,
+        "peak": 0.5,
+        "samples_above_full_scale": 0,
+        "compared_samples": 123756,
+        "stoi": 0.9999999999999998,
+        "estoi": 1.0
+      },
+      "timing": {
+        "engine": "Egorp",
+        "strength": 80,
+        "inputSamples": 123756,
+        "outputSamples": 171756,
+        "tailSamples": 48000,
+        "sampleRate": 48000,
+        "startupMs": 289.460958,
+        "timing": {
+          "elapsedMs": 219.53561700000012,
+          "realTimeFactor": 0.06135278893313774,
+          "quantum": 128,
+          "quantumBudgetMs": 2.6666666666666665,
+          "p95Ms": 0.748958000000016,
+          "p99Ms": 1.268083000000047,
+          "maxMs": 10.672000000000025
+        },
+        "messages": [
+          {
+            "type": "ready",
+            "frameLength": 480,
+            "sampleRate": 48000
+          }
+        ],
+        "hashes": {
+          "input": "4f27631e97b2ad8bae3b8578f3b84b80d70874054b2112ddcc9cdac29ddac4ae",
+          "wasm": "e133417d08bee384d8e60de27efa91da3d858920ed800d4794d490a177300600",
+          "model": "c94d91f70911001c946e0fabb4aa9adc37045f45a03b56008cb0c8244cb63616",
+          "worklet": "0af7a2b4967688b13a59e605d7cff4f89be79da1a7da53b661648c1a64d4dda2"
+        },
+        "node": "v24.19.0",
+        "platform": "darwin",
+        "architecture": "arm64"
+      }
+    },
+    {
+      "sample": "p257_212",
+      "case": "clean",
+      "engine": "dpdfnet2_48khz_hr",
+      "input_sha256": "4f27631e97b2ad8bae3b8578f3b84b80d70874054b2112ddcc9cdac29ddac4ae",
+      "clean_sha256": "4f27631e97b2ad8bae3b8578f3b84b80d70874054b2112ddcc9cdac29ddac4ae",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 23.745227738160175,
+        "unscaled_sdr_db": 23.71933729226634,
+        "speech_projection_gain_db": -0.09384962665422583,
+        "peak": 0.4938659369945526,
+        "samples_above_full_scale": 0,
+        "compared_samples": 123756,
+        "stoi": 0.9982487351786601,
+        "estoi": 0.9873446641420685
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 224.92437093089845,
+        "unscaled_sdr_db": 224.92437093089845,
+        "speech_projection_gain_db": 0.0,
+        "peak": 0.5,
+        "samples_above_full_scale": 0,
+        "compared_samples": 123756,
+        "stoi": 0.9999999999999998,
+        "estoi": 1.0
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.08917316679280855,
+        "p99_ms": 1.4462696143891662,
+        "max_ms": 3.275292052421719,
+        "hop_ms": 10
+      }
+    },
+    {
+      "sample": "p257_212",
+      "case": "clean",
+      "engine": "dpdfnet8_48khz_hr",
+      "input_sha256": "4f27631e97b2ad8bae3b8578f3b84b80d70874054b2112ddcc9cdac29ddac4ae",
+      "clean_sha256": "4f27631e97b2ad8bae3b8578f3b84b80d70874054b2112ddcc9cdac29ddac4ae",
+      "scores": {
+        "delay_samples": 2400,
+        "delay_ms": 50.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 23.78255510445434,
+        "unscaled_sdr_db": 23.674327143307607,
+        "speech_projection_gain_db": -0.1333752218749349,
+        "peak": 0.49399906396865845,
+        "samples_above_full_scale": 0,
+        "compared_samples": 123756,
+        "stoi": 0.9983189703476623,
+        "estoi": 0.9780945569988624
+      },
+      "baseline": {
+        "delay_samples": 0,
+        "delay_ms": 0.0,
+        "alignment_at_search_boundary": false,
+        "si_sdr_db": 224.92437093089845,
+        "unscaled_sdr_db": 224.92437093089845,
+        "speech_projection_gain_db": 0.0,
+        "peak": 0.5,
+        "samples_above_full_scale": 0,
+        "compared_samples": 123756,
+        "stoi": 0.9999999999999998,
+        "estoi": 1.0
+      },
+      "timing": {
+        "runtime": "native ONNX CPU, one inference thread; not comparable to browser scheduling",
+        "rtf": 0.23077377843327154,
+        "p99_ms": 2.4317731690825894,
+        "max_ms": 2.736792026553303,
+        "hop_ms": 10
+      }
+    }
+  ]
+}

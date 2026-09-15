@@ -66,13 +66,13 @@ describe('runtime support', () => {
 		}
 	});
 
-	it('blocks gtcrn without wasm simd and nothing else', () => {
+	it('blocks SIMD-only neural models on unsupported devices', () => {
 		const noSimd: NoiseSuppressionRuntimeCapabilities = {...CAPABLE, wasmSimd: false};
 		expect(getNoiseSuppressionUnsupportedReason('gtcrn', noSimd)).toBe('wasm_simd');
 		expect(getNoiseSuppressionUnsupportedReason('rnnoise', noSimd)).toBeNull();
 		expect(getNoiseSuppressionUnsupportedReason('speex', noSimd)).toBeNull();
 		expect(getNoiseSuppressionUnsupportedReason('gate', noSimd)).toBeNull();
-		expect(getNoiseSuppressionUnsupportedReason('deep_filter', noSimd)).toBeNull();
+		expect(getNoiseSuppressionUnsupportedReason('deep_filter', noSimd)).toBe('wasm_simd');
 	});
 
 	it('blocks fixed-rate backends at an unsupported context rate', () => {

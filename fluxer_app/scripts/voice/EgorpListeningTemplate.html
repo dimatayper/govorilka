@@ -1,0 +1,49 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Egorp — слепое сравнение звука</title>
+<style>
+:root{font-family:system-ui,sans-serif;color:#e8eef5;background:#10151c;color-scheme:dark}body{max-width:850px;margin:40px auto;padding:0 20px;line-height:1.55}h1{font-size:30px}p{color:#b6c3d2}.card{background:#1b2531;padding:22px;border-radius:16px;margin:20px 0}button,select{padding:10px 15px;border:1px solid #4c637b;border-radius:8px;background:#26374a;color:inherit;font:inherit}button{cursor:pointer}button.active{background:#3168a5}button:disabled{opacity:.5}audio{width:100%;margin:16px 0}label{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:10px 0}#status{min-height:25px}a{color:#9cccff}.controls{display:flex;gap:12px;flex-wrap:wrap}h2{margin-top:0;font-size:22px}
+</style>
+<h1>Что звучит лучше?</h1><p>В каждой паре — одна и та же запись после двух разных обработок. Названия скрыты, порядок случайный. Слушай в наушниках при комфортной громкости. Кнопки A и B переключают вариант с сохранением позиции.</p>
+<p>Оцени естественность речи и оставшийся шум. Громкость записей не выравнивалась; задержка обработки компенсирована. Это четыре публичных демонстрационных записи, а не доказательство общего равенства качества.</p>
+<div id="cards"></div><button id="export">Скачать оценки</button><p id="status" aria-live="polite">Оценки сохраняются только в этом браузере. Аудио и ответы никуда не отправляются.</p>
+<script>
+const entries=__ENTRIES__;
+const storageKey='egorp-listening-'+entries.map(e=>e.id).join('-');
+let answers={};try{answers=JSON.parse(localStorage.getItem(storageKey)||'{}')}catch{}
+const save=()=>{try{localStorage.setItem(storageKey,JSON.stringify(answers))}catch{document.querySelector('#status').textContent='Хранилище браузера недоступно. Скачай оценки перед закрытием страницы.'}};
+for(const entry of entries){
+ const card=document.createElement('section');card.className='card';
+ const title=document.createElement('h2');title.textContent=entry.title;card.append(title);
+ const controls=document.createElement('div');controls.className='controls';card.append(controls);
+ const player=document.createElement('audio');player.controls=true;player.preload='metadata';player.src=entry.files[0];card.append(player);
+ let selected=0;let switching=false;
+ for(const [index,label] of ['A','B'].entries()){
+  const button=document.createElement('button');button.textContent='Вариант '+label;button.className=index===0?'active':'';button.setAttribute('aria-pressed',String(index===0));controls.append(button);
+  button.onclick=async()=>{
+   if(selected===index||switching)return;
+   switching=true;for(const b of controls.children)b.disabled=true;
+   const position=player.currentTime;const resume=!player.paused;player.pause();
+   try{
+    await new Promise((resolve,reject)=>{const finish=()=>{player.removeEventListener('loadedmetadata',done);player.removeEventListener('error',failed)};const done=()=>{finish();resolve()};const failed=()=>{finish();reject(new Error('Не удалось загрузить звук'))};player.addEventListener('loadedmetadata',done);player.addEventListener('error',failed);player.src=entry.files[index];player.load()});
+    selected=index;player.currentTime=Math.min(position,Math.max(0,player.duration-.01));
+    for(const [i,b] of [...controls.children].entries()){b.classList.toggle('active',i===index);b.setAttribute('aria-pressed',String(i===index))}
+    if(resume)await player.play();
+   }catch(error){document.querySelector('#status').textContent=error.message}
+   finally{switching=false;for(const b of controls.children)b.disabled=false}
+  };
+ }
+ player.addEventListener('play',()=>{for(const other of document.querySelectorAll('audio'))if(other!==player)other.pause()});
+ for(const [field,text,choices] of [
+  ['naturalness','Где речь естественнее?',['A','B','Одинаково','Не могу оценить']],
+  ['noise','Где меньше мешает шум?',['A','B','Одинаково','Не могу оценить']],
+  ['overall','Какой вариант выбрал бы для звонка?',['A','B','Одинаково','Не могу оценить']]]){
+  const label=document.createElement('label');label.append(document.createTextNode(text));const select=document.createElement('select');label.append(select);card.append(label);
+  for(const value of ['',...choices]){const option=document.createElement('option');option.value=value;option.textContent=value||'Выбрать';select.append(option)}
+  select.value=answers[entry.id]?.[field]||'';select.onchange=()=>{(answers[entry.id]??={})[field]=select.value;save()};
+ }
+ document.querySelector('#cards').append(card);
+}
+document.querySelector('#export').onclick=()=>{
+ const blob=new Blob([JSON.stringify({version:1,entryIds:entries.map(e=>e.id),answers},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='egorp-listening-ratings.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+};
+</script></html>

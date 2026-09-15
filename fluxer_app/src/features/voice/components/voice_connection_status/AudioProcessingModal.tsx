@@ -65,11 +65,11 @@ const AUTO_GAIN_DESCRIPTION_DESCRIPTOR = msg({
 });
 const DEEP_FILTER_STRENGTH_DESCRIPTOR = msg({
 	message: 'Suppression strength',
-	comment: 'Label for the DeepFilterNet3 noise suppression strength slider in the custom voice processing settings.',
+	comment: 'Label for the Egorp noise suppression strength slider in the custom voice processing settings.',
 });
 const DEEP_FILTER_STRENGTH_DESCRIPTION_DESCRIPTOR = msg({
 	message: 'Higher values remove more noise but can affect speech texture.',
-	comment: 'Description for the DeepFilterNet3 noise suppression strength slider.',
+	comment: 'Description for the Egorp noise suppression strength slider.',
 });
 export const AudioProcessingModal = observer(() => {
 	const {i18n} = useLingui();

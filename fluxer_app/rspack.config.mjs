@@ -200,7 +200,9 @@ export default () => {
 			path: DIST_DIR,
 			publicPath,
 			workerPublicPath: '/',
-			workerChunkLoading: false,
+			// ONNX uses new URL(asset, import.meta.url) inside its worker. Disabling
+			// chunk loading also omits Rspack's worker base URI, breaking those URLs.
+			workerChunkLoading: 'import-scripts',
 			filename: jsFilename,
 			chunkFilename: jsFilename,
 			cssFilename: isProduction ? 'assets/[contenthash:16].css' : devCssName,
@@ -275,6 +277,10 @@ export default () => {
 		},
 		module: {
 			rules: [
+				{
+					test: /[\\/]deepfilternet3-noise-filter[\\/]dist[\\/]index\.esm\.js$/,
+					use: [{loader: path.join(ROOT_DIR, 'scripts/build/rspack/egorp-worklet-loader.cjs')}],
+				},
 				{
 					test: /[\\/]@arborium[\\/]arborium[\\/]dist[\\/]arborium\.js$/,
 					use: [{loader: path.join(ROOT_DIR, 'scripts/build/rspack/local-arborium-loader.cjs')}],
@@ -425,6 +431,10 @@ export default () => {
 			}),
 			new CopyRspackPlugin({
 				patterns: [
+					{
+						from: path.join(ROOT_DIR, 'src/features/voice/utils/egorp/models/LICENSE-DPDFNet'),
+						to: path.join(DIST_DIR, 'licenses/DPDFNet.txt'),
+					},
 					{
 						from: PUBLIC_DIR,
 						to: DIST_DIR,

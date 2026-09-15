@@ -1,0 +1,31 @@
+{
+  "browser": "153.0.8010.36",
+  "scope": "Production audio graph, real Worker/WASM and AudioWorklet; app settings and logger stubbed. No microphone or live call.",
+  "pageErrors": [],
+  "results": [
+    {
+      "captureRate": 48000,
+      "durationMs": 12000,
+      "elapsedMs": 12008.400000035763,
+      "trackState": "ended",
+      "startupMs": 242.69999998807907,
+      "frames": 575488,
+      "rms": 0.10099090500223142,
+      "peak": 0.6471789479255676,
+      "nonfinite": 0,
+      "errors": []
+    },
+    {
+      "captureRate": 44100,
+      "durationMs": 12000,
+      "elapsedMs": 12003,
+      "trackState": "ended",
+      "startupMs": 220.80000001192093,
+      "frames": 528384,
+      "rms": 0.10094126672492626,
+      "peak": 0.6422033309936523,
+      "nonfinite": 0,
+      "errors": []
+    }
+  ]
+}
